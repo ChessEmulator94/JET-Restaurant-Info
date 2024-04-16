@@ -1,6 +1,16 @@
+-- Drop the database if it exists
+DROP DATABASE IF EXISTS restaurant_directory;
+
 -- Create the database
 CREATE DATABASE restaurant_directory;
 USE restaurant_directory;
+
+-- Drop tables if they exist
+DROP TABLE IF EXISTS RestaurantPostCodes;
+DROP TABLE IF EXISTS PostCodes;
+DROP TABLE IF EXISTS RestaurantCuisines;
+DROP TABLE IF EXISTS Cuisines;
+DROP TABLE IF EXISTS Restaurants;
 
 -- Table 1: Restaurants
 CREATE TABLE Restaurants (
