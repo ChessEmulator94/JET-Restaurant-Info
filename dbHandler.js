@@ -7,7 +7,7 @@ const USER = "root";
 // Set to DB password
 const PASSWORD = "rootroot";
 // Set to DB name
-const DATABASE = "";
+const DATABASE = "restaurantsDB";
 
 // Create a lasting connection to the DB
 const pool = mysql
