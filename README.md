@@ -1,7 +1,6 @@
 README
 
-How to create the DB Schema:
+How to create the DB Schema (Mac):
 
-1. Install mysql using `npm i mysql2`
-2. Run `mysql -u your_mysql_username -p restaurantDB < schema.sql`
-3. Provide your mysql password when prompted
+1. Install mysql using `brew install mysql`
+2. Run `mysql -u your_mysql_username -prestaurantDB < schema.sql`
