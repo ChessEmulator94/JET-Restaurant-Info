@@ -9,7 +9,7 @@ const PASSWORD = "rootroot";
 // Set to DB name
 const DATABASE = "restaurantsDB";
 
-// Create a lasting connection to the DB
+// Create connection to db
 const pool = mysql
   .createPool({
     host: HOST,
@@ -18,3 +18,23 @@ const pool = mysql
     database: DATABASE,
   })
   .promise();
+
+// Get all restaurants that are associated with a postcode
+const getRestaurants = async (postCode) => {
+  const result = await pool.query(
+    `
+    SELECT r.RestaurantName, r.Rating, r.Address, r.LogoURL
+    FROM Restaurants r
+    INNER JOIN RestaurantPostCodes rpc ON r.RestaurantID = rpc.RestaurantID
+    INNER JOIN PostCodes pc ON rpc.PostCodeID = pc.id
+    WHERE pc.PostCode = ?
+    `,
+    [postCode]
+  );
+  return result;
+};
+
+// Test function
+getRestaurants("24680").then((result) => {
+  console.log(result);
+});
