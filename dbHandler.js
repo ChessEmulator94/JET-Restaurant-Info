@@ -1,4 +1,5 @@
 import mysql from "mysql2";
+import RestaurantObj from "./restaurantObj.js";
 
 // Set to localhost
 const HOST = "127.0.0.1";
@@ -34,7 +35,48 @@ const getRestaurants = async (postCode) => {
   return result;
 };
 
+// Get restaurants for given postcode from JET API
+const fetchRestaurants = async (postCode) => {
+  const url = `https://uk.api.just-eat.io/discovery/uk/restaurants/enriched/bypostcode/${postCode}`;
+
+  return fetch(url)
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      // Return just the restuarant data
+      return data.restaurants;
+    });
+};
+
+// Store restuarant data to database
+const saveRestaurant = (restaurantObj) => {};
+
+// Extract relevant data from API response JSON
+const storeRestaurantEssentials = async (allRestaurants) => {
+  // Iterate over all restaurants and save data to DB
+  for (let i = 0; i < allRestaurants.length; i++) {
+    // Create temporary restaurantObj to hold data
+    let tempRestaurant = new RestaurantObj(
+      allRestaurants[i].id,
+      allRestaurants[i].name,
+      allRestaurants[i].cuisines,
+      allRestaurants[i].rating.starRating,
+      allRestaurants[i].logoUrl,
+      allRestaurants[i].address
+    );
+
+    // Store the restaurant data to the db
+  }
+};
+
 // Test function
 getRestaurants("24680").then((result) => {
-  console.log(result);
+  //console.log(result);
+});
+
+// Test fetchRestaurants
+fetchRestaurants("EC4M7RF").then((result) => {
+  //console.log(result);
+  storeRestaurantEssentials(result);
 });
