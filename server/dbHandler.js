@@ -35,6 +35,16 @@ export const getRestaurants = async (postCode) => {
   return result;
 };
 
+// Check if postCode is in the database already
+export const checkPostcodeExists = async (postCode) => {
+  const [rows] = await pool.query(
+    "SELECT * FROM PostCodes WHERE PostCode = ?",
+    [postCode]
+  );
+
+  return rows.length > 0;
+};
+
 // Get restaurants for given postcode from JET API
 const fetchRestaurants = async (postCode) => {
   const url = `https://uk.api.just-eat.io/discovery/uk/restaurants/enriched/bypostcode/${postCode}`;
@@ -65,8 +75,6 @@ const storeRestaurantEssentials = async (allRestaurants) => {
       allRestaurants[i].logoUrl,
       allRestaurants[i].address
     );
-
-    // Store the restaurant data to the db
   }
 };
 
