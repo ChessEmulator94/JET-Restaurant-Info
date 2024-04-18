@@ -80,3 +80,7 @@ fetchRestaurants("EC4M7RF").then((result) => {
   //console.log(result);
   storeRestaurantEssentials(result);
 });
+
+module.exports = {
+  getRestaurants,
+};
