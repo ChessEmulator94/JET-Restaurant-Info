@@ -1,5 +1,5 @@
 import mysql from "mysql2";
-import RestaurantObj from "./restaurantObj.js";
+import RestaurantObj from "./server/restaurantObj.js";
 
 // Set to localhost
 const HOST = "127.0.0.1";
