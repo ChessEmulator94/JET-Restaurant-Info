@@ -1,0 +1,47 @@
+/* Regular */
+@font-face {
+  font-family: "JETSans";
+  src: url("JETSans/JETSans-Regular.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Bold */
+@font-face {
+  font-family: "JETSans";
+  src: url("JETSans/JETSans-Bold.otf") format("opentype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+/* Extra Bold */
+@font-face {
+  font-family: "JETSans";
+  src: url("JETSans/JETSans-ExtraBold.otf") format("opentype");
+  font-weight: 800; /* or any weight above 700 */
+  font-style: normal;
+}
+
+body {
+  background-color: #f36805;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo {
+  font-family: "JETSans", sans-serif;
+  color: #fff;
+  font-style: italic;
+}
+
+#searchBar {
+  border: 0.5px solid #000000;
+  padding: 16px;
+  font-size: 16px;
+  border-radius: 100px;
+  text-align: center;
+}
