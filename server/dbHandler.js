@@ -1,5 +1,5 @@
 import mysql from "mysql2";
-import RestaurantObj from "./server/restaurantObj.js";
+import RestaurantObj from "./restaurantObj.js";
 
 // Set to localhost
 const HOST = "127.0.0.1";
@@ -21,7 +21,7 @@ const pool = mysql
   .promise();
 
 // Get all restaurants that are associated with a postcode
-const getRestaurants = async (postCode) => {
+export const getRestaurants = async (postCode) => {
   const result = await pool.query(
     `
     SELECT r.RestaurantName, r.Rating, r.Address, r.LogoURL
@@ -80,7 +80,3 @@ fetchRestaurants("EC4M7RF").then((result) => {
   //console.log(result);
   storeRestaurantEssentials(result);
 });
-
-module.exports = {
-  getRestaurants,
-};
