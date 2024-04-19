@@ -96,6 +96,15 @@ const updateView = (allRestaurants) => {
       ".restaurant-address span"
     );
 
+    // Get the first cuisine from the array
+    const cuisineArray =
+      allRestaurantsJSON[0][listingToUse].Cuisines.split(" | ");
+
+    // Use the first valid cuisine image as the background
+    getFirstValidCuisineImage(cuisineArray).then((imageUrl) => {
+      listingElement.style.backgroundImage = `url('${imageUrl}')`;
+    });
+
     // Update logo
     imgElement.src = allRestaurantsJSON[0][listingToUse].LogoURL;
     // Update name
@@ -107,4 +116,31 @@ const updateView = (allRestaurants) => {
     // Update address
     addressSpan.textContent = allRestaurantsJSON[0][listingToUse].Address;
   }
+};
+
+// Function to check if the image URL returns a 404
+const isImageOk = (url) => {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => resolve(true);
+    img.onerror = () => resolve(false);
+    img.src = url;
+  });
+};
+
+// Function to find the first valid cuisine image
+const getFirstValidCuisineImage = (cuisineArray) => {
+  const findValidImage = async () => {
+    for (const cuisine of cuisineArray) {
+      const imageUrl = `https://just-eat-prod-eu-res.cloudinary.com/image/upload/c_fill,f_auto,q_auto,w_425,d_uk:cuisines:${cuisine.trim()}-1.jpg/v1/uk/restaurants`;
+      const isValid = await isImageOk(imageUrl);
+      if (isValid) {
+        return imageUrl;
+      }
+    }
+    // If no valid cuisine image is found, return a default image URL
+    return "https://example.com/default-image.jpg";
+  };
+
+  return findValidImage();
 };
