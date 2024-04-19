@@ -13,6 +13,7 @@ searchButton.addEventListener("click", () => {
     const nextPage = `./searchResultsView.html?postCode=${encodeURIComponent(
       postCode
     )}`;
+
     window.location.href = nextPage;
   }
 });

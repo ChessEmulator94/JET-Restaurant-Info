@@ -41,9 +41,6 @@ app.get("/add-restaurants/:postCode", (req, res) => {
   });
 });
 
-// // Process POST request from http://localhost:${PORT}/
-// app.post("/", (req, res) => {});
-
 // Start the server
 app.listen(PORT, () => {
   console.log(`Server running on port: http://localhost:${PORT}`);
