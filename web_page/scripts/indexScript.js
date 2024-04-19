@@ -8,21 +8,19 @@ searchButton.addEventListener("click", () => {
   // Get post code from screen
   let postCode = document.getElementById("searchBar").value;
   searchBar.value = "";
-  getRestaurants(postCode);
-  // if (validatePostCode(postCode)) {
-  //   window.location.href = "./Manage Heroes/manage.html";
-  // }
+
+  if (validatePostCode(postCode)) {
+    const nextPage = `./searchResultsView.html?postCode=${encodeURIComponent(
+      postCode
+    )}`;
+    window.location.href = nextPage;
+  }
 });
 
+// Need to implement and move to different file
 const validatePostCode = (postCode) => {
   // Check if postcode exists
-};
-
-const getRestaurants = (postCode) => {
-  let queryURL = `${SERVER_URL}/restaurants/${postCode}`;
-  return fetch(queryURL, {})
-    .then((response) => response.text())
-    .then((text) => {
-      console.log(text);
-    });
+  // const ukPostcodeRegex = /^([A-Z]{1,2}[0-9][A-Z0-9]?)\s*([0-9][A-Z]{2})$/i;
+  // return ukPostcodeRegex.test(postCode);
+  return true;
 };

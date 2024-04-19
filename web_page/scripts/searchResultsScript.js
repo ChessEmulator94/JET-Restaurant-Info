@@ -6,9 +6,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // Get the value of the "myVariable" query parameter from the URL
   const urlParams = new URLSearchParams(window.location.search);
   const postCode = urlParams.get("postCode");
-  console.log(postCode);
-
-  //getRestaurants(postCode);
 
   // Check that the postcode is in the databse already
   checkPostcodeExists(postCode).then((exists) => {
@@ -17,26 +14,29 @@ document.addEventListener("DOMContentLoaded", () => {
       console.log("OI VEY");
     }
   });
-  // Get data from DB
-
-  // Update shown listings
+  // Get the restaurant data
+  getRestaurants(postCode).then((response) => {
+    console.log(response);
+    // Update shown listings
+  });
 });
 
+// Call dbHandler.js checkPostcodeExists() via the server
 const checkPostcodeExists = (postCode) => {
   let queryURL = `${SERVER_URL}/checkExists/${postCode}`;
   return fetch(queryURL, {})
     .then((response) => response.text())
     .then((text) => {
-      //console.log(text);
       return text;
     });
 };
 
+// Call dbHandler.js getRestaurants() via the server
 const getRestaurants = (postCode) => {
   let queryURL = `${SERVER_URL}/restaurants/${postCode}`;
   return fetch(queryURL, {})
     .then((response) => response.text())
     .then((text) => {
-      //console.log(text);
+      return text;
     });
 };

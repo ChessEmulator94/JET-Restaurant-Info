@@ -1,6 +1,5 @@
 import bodyParser from "body-parser";
 import express, { json, response } from "express";
-// Import DB handlers
 import { getRestaurants, checkPostcodeExists } from "./dbHandler.js";
 import cors from "cors";
 
