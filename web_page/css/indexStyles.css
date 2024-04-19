@@ -82,11 +82,12 @@ body {
 
 .searchButton {
   text-align: center;
-  border: 1px solid #000000;
+  border: 1px solid var(--jet-color);
   padding: 16px;
   width: 100px;
   font-size: 16px;
-  background-color: var(--bg-white);
+  font-style: var(--bg-white);
+  background-color: var(--jet-color);
   border-radius: 100px;
 }
 
