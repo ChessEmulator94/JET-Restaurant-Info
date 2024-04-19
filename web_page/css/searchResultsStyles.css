@@ -1,6 +1,7 @@
 /* General Styles */
 :root {
   --jet-color: #f36805;
+  --bg-white: #eeedea;
 }
 
 /* Regular */
@@ -15,6 +16,7 @@ body {
   font-family: "JETSans", sans-serif;
   margin: 0;
   padding: 0;
+  background-color: var(--bg-white);
 }
 
 .header {
@@ -40,24 +42,31 @@ body {
 
 /* Single Listing Styles */
 .single-listing {
-  background-color: #f5f5f5;
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   margin: 10px;
   overflow: hidden;
   width: 30%;
+  background-size: 100%;
+  background-position: 100% 100%;
+  background-repeat: no-repeat;
   background-color: var(--jet-color);
+  background-image: url(https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExMXN6MHV6dHRmZGxuMm04amphZHM1MnJ5aHJ1b29xbWQ0cGtiNnQ3YyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3oEjI6SIIHBdRxXI40/giphy.gif);
 }
 
 .restaurant-image img {
   width: auto;
   object-fit: cover;
   padding: 10px;
+  /* //border: white solid 1px; */
 }
 
 .restaurant-text {
   padding: 10px;
-  background-color: rgb(239, 237, 237);
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  height: 120px;
 }
 
 .restaurant-name {
@@ -71,9 +80,18 @@ body {
   margin-bottom: 5px;
 }
 
-.restaurant-address {
-  color: #666;
+.restaurant-cuisines {
+  color: black;
   font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.restaurant-address {
+  color: #838383;
+  font-size: 14px;
+  border-top: #838383 solid;
+  padding-top: 5px;
+  justify-content: flex-end;
 }
 
 /* Media Queries */
