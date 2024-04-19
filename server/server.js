@@ -1,7 +1,7 @@
 import bodyParser from "body-parser";
-import express, { json } from "express";
+import express, { json, response } from "express";
 // Import DB handlers
-import { getRestaurants } from "./dbHandler.js";
+import { getRestaurants, checkPostcodeExists } from "./dbHandler.js";
 import cors from "cors";
 
 const app = express();
@@ -15,11 +15,19 @@ app.use(cors());
 
 // Import function to get data from api
 
-// Process GET request from http://localhost:${PORT}/
+// Call getRestaurants on dbHandler
 app.get("/restaurants/:postCode", (req, res) => {
   let postCode = req.params.postCode;
   getRestaurants(postCode).then((response) => {
     res.send(response[0]);
+  });
+});
+
+// Call checkPostcodeExists on dbHandler
+app.get("/checkExists/:postCode", (req, res) => {
+  let postCode = req.params.postCode;
+  checkPostcodeExists(postCode).then((response) => {
+    res.send(response);
   });
 });
 
