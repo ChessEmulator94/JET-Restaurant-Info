@@ -1,6 +1,5 @@
 import mysql from "mysql2";
 import RestaurantObj from "./restaurantObj.js";
-import { post } from "request";
 
 // Set to localhost
 const HOST = "127.0.0.1";
@@ -27,7 +26,7 @@ export const getRestaurants = async (postCode) => {
     `
     SELECT r.RestaurantName, r.Rating, r.Address, r.LogoURL
     FROM Restaurants r
-    INNER JOIN RestaurantPostCodes rpc ON r.RestaurantID = rpc.RestaurantID
+    INNER JOIN RestaurantPostCodes rpc ON r.id = rpc.RestaurantID
     INNER JOIN PostCodes pc ON rpc.PostCodeID = pc.id
     WHERE pc.PostCode = ?
     `,
@@ -42,7 +41,6 @@ export const checkPostcodeExists = async (postCode) => {
     "SELECT * FROM PostCodes WHERE PostCode = ?",
     [postCode]
   );
-
   return rows.length > 0;
 };
 
@@ -240,14 +238,6 @@ export const addListings = async (postCode) => {
   });
 };
 
-// Test function
-getRestaurants("24680").then((result) => {
-  //console.log(result);
-});
-
-// Test fetchRestaurants
-//"EC1A9LH"
-//"EC4M7RF"
-fetchRestaurants("EC4M7RF").then((result) => {
-  storeRestaurantEssentials(result, "EC4M7RF");
+getRestaurants("EC4M7RF").then((result) => {
+  console.log(result);
 });

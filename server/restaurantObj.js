@@ -1,11 +1,11 @@
 class RestaurantObj {
   constructor(id, name, cuisines, rating, logoUrl, address) {
-    this.restaurantID = id;
-    this.restaurantName = name;
-    this.restaurantCuisines = cuisines;
-    this.restaurantRating = rating;
-    this.restaurantLogo = logoUrl;
-    this.restaurantAddress = address;
+    this.id = id;
+    this.name = name;
+    this.cuisines = cuisines;
+    this.rating = rating;
+    this.logoUrl = logoUrl;
+    this.address = address;
   }
 }
 

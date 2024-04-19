@@ -33,7 +33,7 @@ CREATE TABLE RestaurantCuisines (
   RestaurantID INT NOT NULL,
   CuisineID INT NOT NULL,
   PRIMARY KEY (RestaurantID, CuisineID),
-  FOREIGN KEY (RestaurantID) REFERENCES Restaurants(RestaurantID),
+  FOREIGN KEY (RestaurantID) REFERENCES Restaurants(id),
   FOREIGN KEY (CuisineID) REFERENCES Cuisines(id)
 );
 
@@ -48,6 +48,6 @@ CREATE TABLE RestaurantPostCodes (
   RestaurantID INT NOT NULL,
   PostCodeID INT NOT NULL,
   PRIMARY KEY (RestaurantID, PostCodeID),
-  FOREIGN KEY (RestaurantID) REFERENCES Restaurants(RestaurantID),
+  FOREIGN KEY (RestaurantID) REFERENCES Restaurants(id),
   FOREIGN KEY (PostCodeID) REFERENCES PostCodes(id)
 );
