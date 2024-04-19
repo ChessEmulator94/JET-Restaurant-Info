@@ -1,6 +1,10 @@
 import bodyParser from "body-parser";
 import express, { json, response } from "express";
-import { getRestaurants, checkPostcodeExists } from "./dbHandler.js";
+import {
+  getRestaurants,
+  checkPostcodeExists,
+  addListings,
+} from "./dbHandler.js";
 import cors from "cors";
 
 const app = express();
@@ -18,7 +22,7 @@ app.use(cors());
 app.get("/restaurants/:postCode", (req, res) => {
   let postCode = req.params.postCode;
   getRestaurants(postCode).then((response) => {
-    res.send(response[0]);
+    res.send(response);
   });
 });
 
@@ -30,8 +34,15 @@ app.get("/checkExists/:postCode", (req, res) => {
   });
 });
 
-// Process POST request from http://localhost:${PORT}/
-app.post("/", (req, res) => {});
+app.get("/add-restaurants/:postCode", (req, res) => {
+  let postCode = req.params.postCode;
+  addListings(postCode).then((response) => {
+    res.send(response);
+  });
+});
+
+// // Process POST request from http://localhost:${PORT}/
+// app.post("/", (req, res) => {});
 
 // Start the server
 app.listen(PORT, () => {
