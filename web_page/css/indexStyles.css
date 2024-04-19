@@ -1,6 +1,7 @@
 /* General Styles */
 :root {
   --jet-color: #f36805;
+  --bg-white: #eeedea;
 }
 
 /* Regular */
@@ -31,6 +32,12 @@ body {
   background-color: var(--jet-color);
   width: 100%;
   /* background-image: url("./images/bg_hero-wide.jpg"); */
+  background-image: linear-gradient(
+    var(--jet-color) 0%,
+    var(--jet-color) 50%,
+    var(--bg-white) 50%,
+    var(--bg-white) 100%
+  );
 }
 
 .logo {
@@ -53,7 +60,7 @@ body {
   height: auto;
   padding-left: 40px;
   padding-right: 40px;
-  background-color: white;
+  background-color: var(--bg-white);
   border-radius: 5%;
   .flexbox-container {
     display: flex;
@@ -79,7 +86,7 @@ body {
   padding: 16px;
   width: 100px;
   font-size: 16px;
-  background-color: var(--jet-color);
+  background-color: var(--bg-white);
   border-radius: 100px;
 }
 
