@@ -16,22 +16,20 @@ document.addEventListener("DOMContentLoaded", () => {
   const urlParams = new URLSearchParams(window.location.search);
   const postCode = urlParams.get("postCode");
 
-  // Check that the postcode is in the databse already
   checkPostcodeExists(postCode).then((exists) => {
     if (exists === "false") {
-      // if not, query JET API and add resulting listings to db
-      console.log("OI VEY");
-      addRestaurantsToDb(postCode).then(
-        // Get the restaurant data
-        getRestaurants(postCode).then((response) => {
-          // Update shown listings
-          updateView(response);
+      console.log("Data doesn't exist yet");
+      addRestaurantsToDb(postCode)
+        .then(() => {
+          // After addRestaurantsToDb finishes, get the restaurant data
+          return getRestaurants(postCode);
         })
-      );
+        .then((response) => {
+          // After getRestaurants finishes, update the view
+          updateView(response);
+        });
     } else {
-      // Get the restaurant data
       getRestaurants(postCode).then((response) => {
-        // Update shown listings
         updateView(response);
       });
     }
@@ -139,7 +137,7 @@ const getFirstValidCuisineImage = (cuisineArray) => {
       }
     }
     // If no valid cuisine image is found, return a default image URL
-    return "https://example.com/default-image.jpg";
+    return "https://d15shllkswkct0.cloudfront.net/wp-content/blogs.dir/1/files/2022/04/Image-8.png";
   };
 
   return findValidImage();

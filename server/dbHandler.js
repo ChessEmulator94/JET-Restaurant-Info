@@ -20,16 +20,26 @@ const pool = mysql
   })
   .promise();
 
-// Get all restaurants that are associated with a postcode
+// Get all restaurants that are associated with a postcode and their cuisines
 export const getRestaurants = async (postCode) => {
   const result = await pool.query(
     `
-    SELECT r.RestaurantName, r.Rating, r.Address, r.LogoURL
-    FROM Restaurants r
-    INNER JOIN RestaurantPostCodes rpc ON r.id = rpc.RestaurantID
-    INNER JOIN PostCodes pc ON rpc.PostCodeID = pc.id
-    WHERE pc.PostCode = ?
-    `,
+      SELECT
+          r.RestaurantName,
+          r.Rating,
+          r.Address,
+          r.LogoURL,
+          GROUP_CONCAT(DISTINCT c.Cuisine SEPARATOR ' | ') AS Cuisines
+      FROM Restaurants r
+          INNER JOIN RestaurantPostCodes rpc ON r.id = rpc.RestaurantID
+          INNER JOIN PostCodes pc ON rpc.PostCodeID = pc.id
+          LEFT JOIN RestaurantCuisines rc ON r.id = rc.RestaurantID
+          LEFT JOIN Cuisines c ON rc.CuisineID = c.id
+      WHERE
+          pc.PostCode = ?
+      GROUP BY
+          r.id;
+  `,
     [postCode]
   );
   return result;
@@ -88,9 +98,9 @@ const storeRestaurantEssentials = async (allRestaurants, postCode) => {
     const postcodeIds = await insertPostcodes(postCode);
     await insertRestaurantPostcodes(restaurantId, postcodeIds);
 
-    console.log(
-      `Restaurant ${tempRestaurant.name} inserted with ID ${restaurantId}`
-    );
+    // console.log(
+    //   `Restaurant ${tempRestaurant.name} inserted with ID ${restaurantId}`
+    // );
   }
   console.log("Job done");
 };
@@ -233,11 +243,6 @@ const insertRestaurantPostcodes = async (restaurantId, postcodeIds) => {
 };
 
 export const addListings = async (postCode) => {
-  fetchRestaurants(postCode).then((result) => {
-    storeRestaurantEssentials(result, postCode);
-  });
+  const result = await fetchRestaurants(postCode);
+  await storeRestaurantEssentials(result, postCode);
 };
-
-getRestaurants("EC4M7RF").then((result) => {
-  console.log(result);
-});
