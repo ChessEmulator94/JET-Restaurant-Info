@@ -15,6 +15,7 @@ const restaurantCuisines = document.querySelector(".cuisines span");
 const restaurantAddress = document.querySelector(".address span");
 const leftNavBtn = document.getElementById("nav-left");
 const rightNavBtn = document.getElementById("nav-right");
+const topContainer = document.querySelector(".top-container");
 
 leftNavBtn.addEventListener("click", () => {
   changeRestaurant(-1);
@@ -98,7 +99,38 @@ const findRestaurantPosition = (restaurantID, postCode) => {
   });
 };
 
+// Finds the first valid cuisine image from an array of cuisines
+const getFirstValidCuisineImage = (cuisineArray, restID) => {
+  const findValidImage = async () => {
+    for (const cuisine of cuisineArray) {
+      if (cuisine != "Halal") {
+        let rNum = (restID % 5) + 1;
+        const imageUrl = `https://just-eat-prod-eu-res.cloudinary.com/image/upload/c_fill,f_auto,q_auto,w_425,d_uk:cuisines:${cuisine.trim()}-${rNum}.jpg/v1/uk/restaurants`;
+        const isValid = await isImageOk(imageUrl);
+        if (isValid) {
+          return imageUrl;
+        }
+      }
+    }
+    // If no valid cuisine image is found, return a default image URL
+    return "https://d15shllkswkct0.cloudfront.net/wp-content/blogs.dir/1/files/2022/04/Image-8.png";
+  };
+  return findValidImage();
+};
+
+// Checks if an image URL returns a 404
+const isImageOk = (url) => {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => resolve(true);
+    img.onerror = () => resolve(false);
+    img.src = url;
+  });
+};
+
 const updateDisplayedRestaurant = (restaurant) => {
+  let cuisineArray;
+
   // Update logo
   restaurantLogo.style.backgroundImage = `url(${restaurant.LogoURL})`;
 
@@ -110,8 +142,10 @@ const updateDisplayedRestaurant = (restaurant) => {
 
   if (restaurant.hasOwnProperty("Cuisines")) {
     restaurantCuisines.textContent = restaurant.Cuisines;
+    cuisineArray = restaurant.Cuisines.split(" | ");
   } else if (restaurant.hasOwnProperty("cuisines")) {
     restaurantCuisines.textContent = restaurant.cuisines.join(" | ");
+    cuisineArray = restaurant.cuisines;
   }
 
   // Update address
@@ -120,4 +154,9 @@ const updateDisplayedRestaurant = (restaurant) => {
   // Get the <iframe> element
   // Update the src attribute of the <iframe>
   locationMapIframe.src = `https://www.google.com/maps?q=[${restaurant.Address}]&output=embed`;
+
+  // Get a valid cuisine image and updatet the background food image
+  getFirstValidCuisineImage(cuisineArray, restaurant.id).then((imageUrl) => {
+    topContainer.style.backgroundImage = `url('${imageUrl}')`;
+  });
 };
