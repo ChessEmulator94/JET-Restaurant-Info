@@ -1,6 +1,6 @@
 # JET Restaurant Finder @README
 
-## SETUP (manual)
+## SETUP
 
 ### Create the DB Schema (Mac):
 
@@ -17,10 +17,6 @@
 ### Using the web app:
 
 1.  Open `JUSTEAT/web_page/views/indexView.html` in Google Chrome
-
-**OR**
-
-## SETUP (docker)
 
 ## DESIGN
 
@@ -40,3 +36,4 @@ followed by the reverse
 - There are inconsistencies in the implementaion of the display because:
   > I am relatively new to front-end and was experimenting with different methods of achieving the effect I wanted
   > I progressively started to get more comfortable with certain techniques and thus used them more
+- I used the JET website and delivery apps as inspiration, but all of the css and html was made myself, I did not copy from the sites
