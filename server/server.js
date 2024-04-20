@@ -1,3 +1,4 @@
+/* IMPORTS */
 import bodyParser from "body-parser";
 import express, { json, response } from "express";
 import {
@@ -8,6 +9,7 @@ import {
 } from "./dbHandler.js";
 import cors from "cors";
 
+//
 const app = express();
 const PORT = 5500;
 
@@ -17,9 +19,10 @@ app.use(express.json());
 //Enables CORS for ALL routes
 app.use(cors());
 
-// Import function to get data from api
+/* ROUTES */
 
-// Call getRestaurants on dbHandler
+// Call getRestaurants() on dbHandler.js
+// Returns all restauranst associated with a postcode
 app.get("/restaurants/:postCode", (req, res) => {
   let postCode = req.params.postCode;
   getRestaurants(postCode).then((response) => {
@@ -27,7 +30,8 @@ app.get("/restaurants/:postCode", (req, res) => {
   });
 });
 
-// Call checkPostcodeExists on dbHandler
+// Call checkPostcodeExists() on dbHandler.js
+// Returns true or false
 app.get("/checkExists/:postCode", (req, res) => {
   let postCode = req.params.postCode;
   checkPostcodeExists(postCode).then((response) => {
@@ -35,7 +39,8 @@ app.get("/checkExists/:postCode", (req, res) => {
   });
 });
 
-//
+// Call addListings() on dbHandler.js
+// Adds all restaurants associated with a postcode
 app.get("/add-restaurants/:postCode", (req, res) => {
   let postCode = req.params.postCode;
   addListings(postCode).then((response) => {
@@ -43,7 +48,8 @@ app.get("/add-restaurants/:postCode", (req, res) => {
   });
 });
 
-// Get all restaurant info given a restaurant table id
+// Call getRestaurantInfo() on dbHandler.js
+// Get all restaurant info given a restaurant-table id
 app.get("/restaurant/:id", (req, res) => {
   let id = req.params.id;
   getRestaurantInfo(id).then((response) => {
