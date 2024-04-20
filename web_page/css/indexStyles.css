@@ -1,6 +1,6 @@
 /* General Styles */
 :root {
-  --jet-color: #f36805;
+  --jet-color: #fe7e01;
   --bg-white: #eeedea;
 }
 
@@ -12,101 +12,118 @@
   font-style: normal;
 }
 
-/* Bold */
-@font-face {
-  font-family: "JETSans";
-  src: url("JETSans/JETSans-Bold.otf") format("opentype");
-  font-weight: bold;
-  font-style: normal;
-}
-
-/* Extra Bold */
-@font-face {
-  font-family: "JETSans";
-  src: url("JETSans/JETSans-ExtraBold.otf") format("opentype");
-  font-weight: 800; /* or any weight above 700 */
-  font-style: normal;
-}
-
 body {
-  background-color: var(--jet-color);
-  width: 100%;
-  background-image: linear-gradient(
-    var(--jet-color) 0%,
-    var(--jet-color) 50%,
-    var(--bg-white) 50%,
-    var(--bg-white) 100%
-  );
-}
-/* JUST SEEK Logo */
-.logo {
   font-family: "JETSans", sans-serif;
-  color: var(--jet-color);
-  font-style: italic;
-  text-align: center;
-}
-
-.flexbox-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-}
-
-.small-backdrop {
-  width: auto;
-  height: auto;
-  padding-left: 40px;
-  padding-right: 40px;
+  margin: 0;
+  padding: 0;
   background-color: var(--bg-white);
-  border-radius: 5%;
-  .flexbox-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    max-height: 220px;
+  height: 100vh;
+  width: 100vw;
+}
+
+/* Top bar of page */
+.header {
+  position: relative;
+  z-index: 10;
+  background-color: white;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  height: 90px;
+  text-align: center;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  .jet-logo img {
+    height: 50%;
+    padding-left: 18%;
   }
 }
 
-.flexbox-item {
-  padding: 5px;
-}
-.small-container {
-  background-color: white;
-  width: fit-content;
-  height: 400px;
-}
+.container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  background-color: var(--bg-white);
 
-.searchButton {
-  text-align: center;
-  border: 1px solid var(--jet-color);
-  padding: 16px;
-  width: 100px;
-  font-size: 16px;
-  font-style: var(--bg-white);
-  background-color: var(--jet-color);
-  border-radius: 100px;
-}
+  .main-image {
+    width: 100%;
+    height: 60%;
+    background-image: url("./images/bg_hero-wide.jpg");
+    background-position: center;
+    background-size: 100vw;
+    display: flex;
+    overflow: visible;
+    justify-content: center;
+    align-items: center;
+  }
 
-.search {
-  padding-bottom: 29px;
-}
+  .search-container {
+    width: 700px;
+    height: 220px;
+    margin-top: 30%;
+    justify-self: center;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 
-.searchButton:hover {
-  background-color: rgba(254, 213, 101, 0.753);
-}
+    .main-title {
+      margin-top: 2%;
+    }
+    .main-title span {
+      color: var(--jet-color);
+      font-family: monospace;
+      font-weight: bolder;
+      font-size: 40px;
+    }
 
-.searchButton:active {
-  transform: scale(0.95);
-}
+    .sub-text {
+      margin-top: 2%;
+    }
 
-#searchBar {
-  text-align: center;
-  border: 0.5px solid #000000;
-  padding: 16px;
-  font-size: 16px;
-  border-radius: 100px;
-  flex-basis: 100%;
+    .sub-text span {
+      color: rgb(134, 132, 132);
+      font-size: larger;
+    }
+    .search-bar {
+      margin-top: 4%;
+      border: 0.7px black solid;
+      border-radius: 100px;
+      width: 50%;
+      height: 30%;
+      display: flex;
+      align-items: center;
+
+      .search-input {
+        border: none;
+        font-size: larger;
+        padding-left: 7%;
+        outline-width: 0px;
+        border-radius: 100px;
+      }
+
+      .search-btn {
+        margin-left: 50px;
+
+        .search-icon {
+          color: white;
+          padding: 14px;
+          height: 48%;
+          width: 70%;
+          border-radius: 100px;
+          background-color: var(--jet-color);
+        }
+
+        .search-icon:hover {
+          filter: brightness(0.95);
+          cursor: hand;
+        }
+
+        .search-icon:active {
+          scale: (0.9);
+        }
+      }
+    }
+  }
 }
