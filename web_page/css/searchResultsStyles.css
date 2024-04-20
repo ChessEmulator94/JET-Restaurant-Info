@@ -139,17 +139,20 @@ body {
   }
 }
 
+/* Overall grid formatting */
 .restaurant-grid {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+
+  /* Grid row formatting */
   .grid-row {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     width: 100%;
 
-    /* Single Listing Styles */
+    /* Individual listing style */
     .single-listing {
       border-radius: 5px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -161,6 +164,7 @@ body {
       background-color: var(--jet-color);
       background-image: url(https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExMXN6MHV6dHRmZGxuMm04amphZHM1MnJ5aHJ1b29xbWQ0cGtiNnQ3YyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3oEjI6SIIHBdRxXI40/giphy.gif);
 
+      /* Image section */
       .restaurant-image img {
         width: auto;
         object-fit: fill;
@@ -168,6 +172,7 @@ body {
         border-radius: 100px;
       }
 
+      /* Text section */
       .restaurant-text {
         padding: 10px;
         background-color: white;
