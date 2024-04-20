@@ -16,12 +16,20 @@ const restaurantAddress = document.querySelector(".address span");
 const leftNavBtn = document.getElementById("nav-left");
 const rightNavBtn = document.getElementById("nav-right");
 const topContainer = document.querySelector(".top-container");
+// Logo
+const jetLogo = document.querySelector(".jet-logo");
 
+/* EVENT LISTENERS */
+// Go to home screen
+jetLogo.addEventListener("click", () => {
+  window.location.href = "./indexView.html";
+});
+// Left-chevron button
 leftNavBtn.addEventListener("click", () => {
   changeRestaurant(-1);
   updateDisplayedRestaurant(allRestaurantsJSON[0][restaurantPositionInJSON]);
 });
-
+// Right-chevron button
 rightNavBtn.addEventListener("click", () => {
   changeRestaurant(1);
   console.log(allRestaurantsJSON[0][restaurantPositionInJSON].id);

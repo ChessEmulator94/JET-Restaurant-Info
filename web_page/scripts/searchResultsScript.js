@@ -5,6 +5,8 @@ let allRestaurantsLong; // Stores all restaurants from a search
 let globalPostCode; // Store postCode of current search
 
 /* GET ELEMENTS FROM DOM */
+// Logo
+const jetLogo = document.querySelector(".jet-logo");
 // Address
 const displayedArea = document.querySelector(".location-name span");
 // Navigation Buttons
@@ -22,6 +24,10 @@ const listing8 = document.getElementById("listing8");
 const listing9 = document.getElementById("listing9");
 
 /* EVENT LISTENERS */
+// Go to home screen
+jetLogo.addEventListener("click", () => {
+  window.location.href = "./indexView.html";
+});
 // View previous restaurants
 leftArrow.addEventListener("click", () => {
   viewNextRestaurants(-9);
