@@ -7,8 +7,13 @@ let listingOffset = 0;
 // Stores all restaurants from a search
 let allRestaurantsLong;
 
+// Store postCode of current search
+let globalPostCode;
+
 // Get elements from the DOM
 const displayedArea = document.querySelector(".location-name span");
+const leftArrow = document.querySelector("#nav-btn-1");
+const rightArrow = document.querySelector("#nav-btn-2");
 
 /* When window loads, do thte following:
  *  - Extract searched postcode from the URL
@@ -21,6 +26,8 @@ document.addEventListener("DOMContentLoaded", () => {
   // Get the value of the "postCode" query parameter from the URL
   const urlParams = new URLSearchParams(window.location.search);
   const postCode = urlParams.get("postCode");
+
+  globalPostCode = postCode;
 
   updateAreaPin(postCode);
 
@@ -78,7 +85,6 @@ const getRestaurants = (postCode) => {
 
 const updateView = (allRestaurants) => {
   let allRestaurantsJSON = JSON.parse(allRestaurants);
-  console.log(allRestaurants);
 
   for (let i = 1; i < 10; i++) {
     // Calculate which listing data to use
@@ -127,6 +133,9 @@ const updateView = (allRestaurants) => {
     // Update address
     addressSpan.textContent = allRestaurantsJSON[0][listingToUse].Address;
   }
+
+  // Disable the navigation buttons if necessary
+  checkNavigationButtons();
 };
 
 // Function to check if the image URL returns a 404
@@ -163,6 +172,33 @@ const updateAreaPin = (postCode) => {
   displayedArea.textContent = postCode;
 };
 
+const viewNextRestaurants = (direction) => {
+  listingOffset += direction;
+  updateView(allRestaurantsLong);
+};
+
+leftArrow.addEventListener("click", () => {
+  viewNextRestaurants(-9);
+});
+rightArrow.addEventListener("click", () => {
+  viewNextRestaurants(9);
+});
+
+const checkNavigationButtons = () => {
+  if (listingOffset == 0) {
+    // Disable left navigation button
+    leftArrow.style.pointerEvents = "none";
+    leftArrow.style.opacity = "0.5";
+    leftArrow.style.cursor = "default";
+  } else {
+    // Enable left navigation button
+    leftArrow.style.pointerEvents = "auto";
+    leftArrow.style.opacity = "1";
+    leftArrow.style.cursor = "pointer";
+  }
+
+  // Add functionality to disable right arrow if at end
+};
 // Add event listeners for listings
 const listing1 = document.getElementById("listing1");
 const listing2 = document.getElementById("listing2");
@@ -241,6 +277,6 @@ listing9.addEventListener("click", () => {
 const loadNextScreen = (selectedRestaurantID) => {
   const nextPage = `./restaurantInfoView.html?id=${encodeURIComponent(
     selectedRestaurantID
-  )}`;
+  )}&postcode=${globalPostCode}`;
   window.location.href = nextPage;
 };
