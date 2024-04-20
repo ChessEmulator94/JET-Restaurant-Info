@@ -69,12 +69,13 @@ const getRestaurants = (postCode) => {
 const updateView = (allRestaurants) => {
   let allRestaurantsJSON = JSON.parse(allRestaurants);
   console.log(allRestaurants);
-  console.log(allRestaurantsJSON[0][0].RestaurantName); // Access the first object in the nested array
-  console.log("here");
 
   for (let i = 1; i < 10; i++) {
     // Calculate which listing data to use
     let listingToUse = i + listingOffset - 1;
+
+    // Store the restaurant id
+    let restID = allRestaurantsJSON[0][listingToUse].id;
 
     // Select the .single-listing element by it's unique ID
     const listingElement = document.getElementById(`listing${i}`);
@@ -99,10 +100,12 @@ const updateView = (allRestaurants) => {
       allRestaurantsJSON[0][listingToUse].Cuisines.split(" | ");
 
     // Use the first valid cuisine image as the background
-    getFirstValidCuisineImage(cuisineArray).then((imageUrl) => {
+    getFirstValidCuisineImage(cuisineArray, restID).then((imageUrl) => {
       listingElement.style.backgroundImage = `url('${imageUrl}')`;
     });
 
+    // Update restaurant id
+    listingElement.dataset.restaurantID = restID;
     // Update logo
     imgElement.src = allRestaurantsJSON[0][listingToUse].LogoURL;
     // Update name
@@ -127,13 +130,16 @@ const isImageOk = (url) => {
 };
 
 // Function to find the first valid cuisine image
-const getFirstValidCuisineImage = (cuisineArray) => {
+const getFirstValidCuisineImage = (cuisineArray, restID) => {
   const findValidImage = async () => {
     for (const cuisine of cuisineArray) {
-      const imageUrl = `https://just-eat-prod-eu-res.cloudinary.com/image/upload/c_fill,f_auto,q_auto,w_425,d_uk:cuisines:${cuisine.trim()}-1.jpg/v1/uk/restaurants`;
-      const isValid = await isImageOk(imageUrl);
-      if (isValid) {
-        return imageUrl;
+      if (cuisine != "Halal") {
+        let rNum = (restID % 5) + 1;
+        const imageUrl = `https://just-eat-prod-eu-res.cloudinary.com/image/upload/c_fill,f_auto,q_auto,w_425,d_uk:cuisines:${cuisine.trim()}-${rNum}.jpg/v1/uk/restaurants`;
+        const isValid = await isImageOk(imageUrl);
+        if (isValid) {
+          return imageUrl;
+        }
       }
     }
     // If no valid cuisine image is found, return a default image URL
@@ -141,4 +147,86 @@ const getFirstValidCuisineImage = (cuisineArray) => {
   };
 
   return findValidImage();
+};
+
+// Add event listeners for listings
+const listing1 = document.getElementById("listing1");
+const listing2 = document.getElementById("listing2");
+const listing3 = document.getElementById("listing3");
+const listing4 = document.getElementById("listing4");
+const listing5 = document.getElementById("listing5");
+const listing6 = document.getElementById("listing6");
+const listing7 = document.getElementById("listing7");
+const listing8 = document.getElementById("listing8");
+const listing9 = document.getElementById("listing9");
+
+listing1.addEventListener("click", () => {
+  // Get the restaurant that was clicked
+  let selectedRestaurantID = listing1.dataset.restaurantID;
+  // Load next screen with restaurant info
+  loadNextScreen(selectedRestaurantID);
+});
+
+listing2.addEventListener("click", () => {
+  // Get the restaurant that was clicked
+  let selectedRestaurantID = listing2.dataset.restaurantID;
+  // Load next screen with restaurant info
+  loadNextScreen(selectedRestaurantID);
+});
+
+listing3.addEventListener("click", () => {
+  // Get the restaurant that was clicked
+  let selectedRestaurantID = listing3.dataset.restaurantID;
+  // Load next screen with restaurant info
+  loadNextScreen(selectedRestaurantID);
+});
+
+listing4.addEventListener("click", () => {
+  // Get the restaurant that was clicked
+  let selectedRestaurantID = listing4.dataset.restaurantID;
+  // Load next screen with restaurant info
+  loadNextScreen(selectedRestaurantID);
+});
+
+listing5.addEventListener("click", () => {
+  // Get the restaurant that was clicked
+  let selectedRestaurantID = listing5.dataset.restaurantID;
+  // Load next screen with restaurant info
+  loadNextScreen(selectedRestaurantID);
+});
+
+listing6.addEventListener("click", () => {
+  // Get the restaurant that was clicked
+  let selectedRestaurantID = listing6.dataset.restaurantID;
+  // Load next screen with restaurant info
+  loadNextScreen(selectedRestaurantID);
+});
+
+listing7.addEventListener("click", () => {
+  // Get the restaurant that was clicked
+  let selectedRestaurantID = listing7.dataset.restaurantID;
+  // Load next screen with restaurant info
+  loadNextScreen(selectedRestaurantID);
+});
+
+listing8.addEventListener("click", () => {
+  // Get the restaurant that was clicked
+  let selectedRestaurantID = listing8.dataset.restaurantID;
+  // Load next screen with restaurant info
+  loadNextScreen(selectedRestaurantID);
+});
+
+listing9.addEventListener("click", () => {
+  // Get the restaurant that was clicked
+  let selectedRestaurantID = listing9.dataset.restaurantID;
+  // Load next screen with restaurant info
+  loadNextScreen(selectedRestaurantID);
+});
+
+// Load restaurant info screen and pass it the restaurant id
+const loadNextScreen = (selectedRestaurantID) => {
+  const nextPage = `./restaurantInfoView.html?id=${encodeURIComponent(
+    selectedRestaurantID
+  )}`;
+  window.location.href = nextPage;
 };
