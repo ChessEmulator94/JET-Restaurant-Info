@@ -1,14 +1,11 @@
 import mysql from "mysql2";
 import RestaurantObj from "./restaurantObj.js";
 
-// Set to localhost
-const HOST = "127.0.0.1";
-// Set to DB username
-const USER = "root";
-// Set to DB password
-const PASSWORD = "rootroot";
-// Set to DB name
-const DATABASE = "restaurantsDB";
+/* DB CONNECTION INFO */
+const HOST = "127.0.0.1"; // Localhost
+const USER = "root"; // Set to DB username
+const PASSWORD = "rootroot"; // Set to DB password
+const DATABASE = "restaurantsDB"; // Set to DB name
 
 // Create connection to db
 const pool = mysql
@@ -20,6 +17,7 @@ const pool = mysql
   })
   .promise();
 
+/* SELECT AND RETURN FUNCTIONS */
 // Get all restaurants that are associated with a postcode and their cuisines
 export const getRestaurants = async (postCode) => {
   const result = await pool.query(
@@ -46,19 +44,9 @@ export const getRestaurants = async (postCode) => {
   return result;
 };
 
-// Check if postCode is in the database already
-export const checkPostcodeExists = async (postCode) => {
-  const [rows] = await pool.query(
-    "SELECT * FROM PostCodes WHERE PostCode = ?",
-    [postCode]
-  );
-  return rows.length > 0;
-};
-
 // Get restaurants for given postcode from JET API
 const fetchRestaurants = async (postCode) => {
   const url = `https://uk.api.just-eat.io/discovery/uk/restaurants/enriched/bypostcode/${postCode}`;
-
   return fetch(url)
     .then((response) => {
       return response.json();
@@ -69,7 +57,7 @@ const fetchRestaurants = async (postCode) => {
     });
 };
 
-// Function to get restaurant details
+// Gets restaurant details
 const getRestaurantDetails = async (id) => {
   const [rows] = await pool.query(
     `SELECT
@@ -81,7 +69,7 @@ const getRestaurantDetails = async (id) => {
   return rows[0] || null;
 };
 
-// Function to get cuisines for a restaurant
+// Gets cuisines of a restaurant
 const getRestaurantCuisines = async (id) => {
   const [rows] = await pool.query(
     `SELECT c.Cuisine
@@ -93,7 +81,7 @@ const getRestaurantCuisines = async (id) => {
   return rows.map((row) => row.Cuisine);
 };
 
-// Function to get postcodes for a restaurant
+// Gets postcodes a restaurant is associated with
 const getRestaurantPostcodes = async (id) => {
   const [rows] = await pool.query(
     `SELECT p.PostCode
@@ -105,16 +93,14 @@ const getRestaurantPostcodes = async (id) => {
   return rows.map((row) => row.PostCode);
 };
 
-// Function to get all restaurant information
+// Gets all information of a restaurant
 export const getRestaurantInfo = async (id) => {
   const restaurantDetails = await getRestaurantDetails(id);
   if (!restaurantDetails) {
     return null; // Restaurant not found
   }
-
   const cuisines = await getRestaurantCuisines(id);
   const postcodes = await getRestaurantPostcodes(id);
-
   return {
     ...restaurantDetails,
     cuisines,
@@ -122,7 +108,17 @@ export const getRestaurantInfo = async (id) => {
   };
 };
 
-// Extract relevant data from API response JSON
+// Check if postCode is in the database already
+export const checkPostcodeExists = async (postCode) => {
+  const [rows] = await pool.query(
+    "SELECT * FROM PostCodes WHERE PostCode = ?",
+    [postCode]
+  );
+  return rows.length > 0;
+};
+
+/* INSERT FUNCTIONS */
+// Extracts relevant data from API response JSON
 const storeRestaurantEssentials = async (allRestaurants, postCode) => {
   // Iterate over all restaurants and save data to DB
   for (let i = 0; i < allRestaurants.length; i++) {
@@ -143,32 +139,25 @@ const storeRestaurantEssentials = async (allRestaurants, postCode) => {
 
     // Insert restaurant into db and get it's table insert id
     const restaurantId = await insertRestaurant(tempRestaurant);
-
     // Insert cuisines and their relationship with the restaurant
     const cuisineIds = await insertCuisines(tempRestaurant.cuisines);
     await insertRestaurantCuisines(restaurantId, cuisineIds);
-
     // Insert postcodes and their relationship with the restaurant
     const postcodeIds = await insertPostcodes(postCode);
     await insertRestaurantPostcodes(restaurantId, postcodeIds);
-
-    // console.log(
-    //   `Restaurant ${tempRestaurant.name} inserted with ID ${restaurantId}`
-    // );
   }
-  console.log("Job done");
+  console.log(`Restaurants associated with postcode ${postCode} added`);
 };
 
-// Insert row into Restaurants table
+// Inserts row into Restaurants table
 const insertRestaurant = async (restaurantObj) => {
   // First, check if the restaurantID already exists
   const checkQuery = `
     SELECT id FROM Restaurants WHERE RestaurantID = ?
   `;
   const [existingResult] = await pool.query(checkQuery, [restaurantObj.id]);
-
   if (existingResult.length > 0) {
-    // If the restaurantID already exists, return its row id
+    // If the restaurantID already exists, return it's row id
     return existingResult[0].id;
   } else {
     // If the restaurantID doesn't exist, insert the new restaurant and return the new row id
@@ -183,7 +172,6 @@ const insertRestaurant = async (restaurantObj) => {
       restaurantObj.logoUrl,
       restaurantObj.id,
     ];
-
     const [result] = await pool.query(restaurantQuery, restaurantValues);
     const restaurantId = result.insertId;
     return restaurantId;
@@ -193,15 +181,13 @@ const insertRestaurant = async (restaurantObj) => {
 // Insert row into Cuisines table
 const insertCuisines = async (cuisines) => {
   const cuisineIds = [];
-
   for (const cuisine of cuisines) {
     // First, check if the cuisine already exists
     const checkQuery = `
       SELECT id FROM Cuisines WHERE Cuisine = ?
     `;
     const [existingResult] = await pool.query(checkQuery, [cuisine]);
-
-    // If the cuisine already exists, add its id to the cuisineIds array
+    // If the cuisine already exists, add it's id to the cuisineIds array
     if (existingResult.length > 0) {
       cuisineIds.push(existingResult[0].id);
     } else {
@@ -213,14 +199,12 @@ const insertCuisines = async (cuisines) => {
       cuisineIds.push(result.insertId);
     }
   }
-
   return cuisineIds;
 };
 
-// Insert row into RestaurantCuisines table
+// Inserts row into RestaurantCuisines table
 const insertRestaurantCuisines = async (restaurantId, cuisineIds) => {
   const values = [];
-
   for (const cuisineId of cuisineIds) {
     // First, check if the combination of restaurantId and cuisineId already exists
     const checkQuery = `
@@ -230,13 +214,11 @@ const insertRestaurantCuisines = async (restaurantId, cuisineIds) => {
       restaurantId,
       cuisineId,
     ]);
-
     // If the combination doesn't exist, add it to the values array
     if (existingResult.length === 0) {
       values.push([restaurantId, cuisineId]);
     }
   }
-
   // If there are new combinations to insert, execute the INSERT query
   if (values.length > 0) {
     const relationQuery = `
@@ -246,7 +228,7 @@ const insertRestaurantCuisines = async (restaurantId, cuisineIds) => {
   }
 };
 
-// Insert row into Postcodes table
+// Inserts row into Postcodes table
 const insertPostcodes = async (postcode) => {
   // First, check if the postcode already exists
   const checkQuery = `
@@ -267,10 +249,9 @@ const insertPostcodes = async (postcode) => {
   }
 };
 
-// Insert row into ResaurantPostcodes table
+// Inserts row into ResaurantPostcodes table
 const insertRestaurantPostcodes = async (restaurantId, postcodeIds) => {
   const values = [];
-
   for (const postcodeId of postcodeIds) {
     // First, check if the combination of restaurantId and postcodeId already exists
     const checkQuery = `
@@ -280,13 +261,11 @@ const insertRestaurantPostcodes = async (restaurantId, postcodeIds) => {
       restaurantId,
       postcodeId,
     ]);
-
     if (existingResult.length === 0) {
       // If the combination doesn't exist, add it to the values array
       values.push([restaurantId, postcodeId]);
     }
   }
-
   if (values.length > 0) {
     // If there are new combinations to insert, execute the INSERT query
     const relationQuery = `
@@ -296,6 +275,7 @@ const insertRestaurantPostcodes = async (restaurantId, postcodeIds) => {
   }
 };
 
+// Adds restaurants associated with a new postcode
 export const addListings = async (postCode) => {
   const result = await fetchRestaurants(postCode);
   await storeRestaurantEssentials(result, postCode);

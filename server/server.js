@@ -9,14 +9,13 @@ import {
 } from "./dbHandler.js";
 import cors from "cors";
 
-//
 const app = express();
 const PORT = 5500;
 
 app.use(bodyParser.json());
 app.use(express.json());
 
-//Enables CORS for ALL routes
+// Enables CORS for ALL routes
 app.use(cors());
 
 /* ROUTES */
