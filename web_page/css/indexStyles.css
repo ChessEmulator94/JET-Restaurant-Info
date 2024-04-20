@@ -31,7 +31,6 @@
 body {
   background-color: var(--jet-color);
   width: 100%;
-  /* background-image: url("./images/bg_hero-wide.jpg"); */
   background-image: linear-gradient(
     var(--jet-color) 0%,
     var(--jet-color) 50%,
@@ -39,7 +38,7 @@ body {
     var(--bg-white) 100%
   );
 }
-
+/* JUST SEEK Logo */
 .logo {
   font-family: "JETSans", sans-serif;
   color: var(--jet-color);
