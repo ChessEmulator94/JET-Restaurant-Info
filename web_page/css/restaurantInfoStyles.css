@@ -1,0 +1,73 @@
+:root {
+  --jet-color: #f36805;
+  --bg-white: #eeedea;
+}
+
+/* Regular */
+@font-face {
+  font-family: "JETSans";
+  src: url("JETSans/JETSans-Regular.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  font-family: "JETSans", sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-white);
+}
+
+.container {
+  width: 100%;
+  height: 86vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.headerBar {
+  background-color: var(--jet-color);
+  color: white;
+  min-height: 90px;
+  text-align: center;
+  font-family: "JETSans";
+  width: 100%;
+}
+
+.restaurantInfo {
+  width: 600px;
+  height: 400px;
+  border-radius: 10px;
+  margin-bottom: 5px;
+  background-color: white;
+  border: solid white;
+}
+
+.flex-container {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-direction: column;
+}
+
+.logo {
+  width: 100px;
+  height: 100px;
+  border-radius: 10px;
+  margin-top: 10px;
+  background-color: red;
+}
+
+.map {
+  border: solid white;
+  border-radius: 10px;
+}
+
+.restaurantPin {
+  width: 600px;
+  height: 220px;
+  border-radius: 10px;
+  border: none;
+}

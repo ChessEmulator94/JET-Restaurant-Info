@@ -22,8 +22,11 @@ body {
 .header {
   background-color: var(--jet-color);
   color: #fff;
-  padding: 10px;
+  height: 90px;
   text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .restaurant-grid {
