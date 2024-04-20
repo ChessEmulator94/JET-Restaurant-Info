@@ -4,6 +4,7 @@ import {
   getRestaurants,
   checkPostcodeExists,
   addListings,
+  getRestaurantInfo,
 } from "./dbHandler.js";
 import cors from "cors";
 
@@ -34,9 +35,19 @@ app.get("/checkExists/:postCode", (req, res) => {
   });
 });
 
+//
 app.get("/add-restaurants/:postCode", (req, res) => {
   let postCode = req.params.postCode;
   addListings(postCode).then((response) => {
+    res.send(response);
+  });
+});
+
+// Get all restaurant info given a restaurant table id
+app.get("/restaurant/:id", (req, res) => {
+  let id = req.params.id;
+  getRestaurantInfo(id).then((response) => {
+    console.log(response);
     res.send(response);
   });
 });
