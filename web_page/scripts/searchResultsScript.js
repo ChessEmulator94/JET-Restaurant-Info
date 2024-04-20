@@ -4,6 +4,12 @@ const SERVER_URL = `http://localhost:5500`;
 // Offset the restaurants being shown
 let listingOffset = 0;
 
+// Stores all restaurants from a search
+let allRestaurantsLong;
+
+// Get elements from the DOM
+const displayedArea = document.querySelector(".location-name span");
+
 /* When window loads, do thte following:
  *  - Extract searched postcode from the URL
  *  - Check if the postcode is in the database already
@@ -16,6 +22,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const urlParams = new URLSearchParams(window.location.search);
   const postCode = urlParams.get("postCode");
 
+  updateAreaPin(postCode);
+
   checkPostcodeExists(postCode).then((exists) => {
     if (exists === "false") {
       console.log("Data doesn't exist yet");
@@ -26,10 +34,12 @@ document.addEventListener("DOMContentLoaded", () => {
         })
         .then((response) => {
           // After getRestaurants finishes, update the view
+          allRestaurantsLong = response;
           updateView(response);
         });
     } else {
       getRestaurants(postCode).then((response) => {
+        allRestaurantsLong = response;
         updateView(response);
       });
     }
@@ -147,6 +157,10 @@ const getFirstValidCuisineImage = (cuisineArray, restID) => {
   };
 
   return findValidImage();
+};
+
+const updateAreaPin = (postCode) => {
+  displayedArea.textContent = postCode;
 };
 
 // Add event listeners for listings
