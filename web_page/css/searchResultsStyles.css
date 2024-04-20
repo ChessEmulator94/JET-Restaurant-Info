@@ -180,31 +180,53 @@ body {
   display: flex;
   flex-direction: column;
   height: 120px;
-}
 
-.restaurant-name {
-  font-size: 18px;
-  font-weight: bold;
-  margin-bottom: 5px;
-}
+  .row-1 {
+    display: flex;
+    height: 33%;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
 
-.restaurant-rating {
-  color: #ffa500;
-  margin-bottom: 5px;
-}
+    .restaurant-name {
+      width: 100%;
+      font-weight: bold;
+      font-size: larger;
+    }
 
-.restaurant-cuisines {
-  color: black;
-  font-size: 14px;
-  margin-bottom: 10px;
-}
+    .restaurant-rating {
+      color: black;
+      background-color: #d3d3d3;
+      border-radius: 100px;
+      padding: 10px;
+      font-size: smaller;
+    }
+  }
+  .row-2 {
+    display: flex;
+    height: 33%;
+    align-items: center;
+    width: 100%;
+    .restaurant-cuisines {
+      color: black;
+      font-size: 14px;
+    }
+  }
+  .row-3 {
+    display: flex;
+    height: 33%;
+    align-items: center;
+    width: 100%;
 
-.restaurant-address {
-  color: #838383;
-  font-size: 14px;
-  border-top: #838383 solid;
-  padding-top: 5px;
-  justify-content: flex-end;
+    .restaurant-address {
+      color: #838383;
+      font-size: 14px;
+      width: 100%;
+      border-top: #838383 solid;
+      padding-top: 5px;
+      justify-content: flex-end;
+    }
+  }
 }
 
 /* Media Queries */
