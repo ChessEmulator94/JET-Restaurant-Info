@@ -25,6 +25,7 @@ export const getRestaurants = async (postCode) => {
   const result = await pool.query(
     `
       SELECT
+          r.id,
           r.RestaurantName,
           r.Rating,
           r.Address,
@@ -66,6 +67,59 @@ const fetchRestaurants = async (postCode) => {
       // Return just the restuarant data
       return data.restaurants;
     });
+};
+
+// Function to get restaurant details
+const getRestaurantDetails = async (id) => {
+  const [rows] = await pool.query(
+    `SELECT
+       r.id, r.RestaurantName, r.Rating, r.Address, r.LogoURL
+     FROM Restaurants r
+     WHERE r.id = ?`,
+    [id]
+  );
+  return rows[0] || null;
+};
+
+// Function to get cuisines for a restaurant
+const getRestaurantCuisines = async (id) => {
+  const [rows] = await pool.query(
+    `SELECT c.Cuisine
+     FROM RestaurantCuisines rc
+     JOIN Cuisines c ON rc.CuisineID = c.id
+     WHERE rc.RestaurantID = ?`,
+    [id]
+  );
+  return rows.map((row) => row.Cuisine);
+};
+
+// Function to get postcodes for a restaurant
+const getRestaurantPostcodes = async (id) => {
+  const [rows] = await pool.query(
+    `SELECT p.PostCode
+     FROM RestaurantPostCodes rp
+     JOIN PostCodes p ON rp.PostCodeID = p.id
+     WHERE rp.RestaurantID = ?`,
+    [id]
+  );
+  return rows.map((row) => row.PostCode);
+};
+
+// Function to get all restaurant information
+export const getRestaurantInfo = async (id) => {
+  const restaurantDetails = await getRestaurantDetails(id);
+  if (!restaurantDetails) {
+    return null; // Restaurant not found
+  }
+
+  const cuisines = await getRestaurantCuisines(id);
+  const postcodes = await getRestaurantPostcodes(id);
+
+  return {
+    ...restaurantDetails,
+    cuisines,
+    postcodes,
+  };
 };
 
 // Extract relevant data from API response JSON
