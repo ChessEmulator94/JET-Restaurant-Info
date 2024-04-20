@@ -25,8 +25,13 @@ body {
   height: 90px;
   text-align: center;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+
+  .jet-logo img {
+    height: 50%;
+    padding-left: 18%;
+  }
 }
 
 .sub-header {
@@ -151,7 +156,6 @@ body {
   overflow: hidden;
   width: 30%;
   background-size: 100%;
-  background-position: 100% 100%;
   background-repeat: no-repeat;
   background-color: var(--jet-color);
   background-image: url(https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExMXN6MHV6dHRmZGxuMm04amphZHM1MnJ5aHJ1b29xbWQ0cGtiNnQ3YyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3oEjI6SIIHBdRxXI40/giphy.gif);
@@ -168,10 +172,9 @@ body {
 
 .restaurant-image img {
   width: auto;
-  object-fit: cover;
+  object-fit: fill;
   padding: 10px;
   border-radius: 100px;
-  /* //border: white solid 1px; */
 }
 
 .restaurant-text {
