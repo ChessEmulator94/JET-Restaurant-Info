@@ -6,15 +6,40 @@
     <link rel="stylesheet" href="../css/restaurantInfoStyles.css" />
   </head>
   <body>
-    <div class="headerBar">
-      <h1></h1>
+    <div class="header">
+      <div class="jet-logo">
+        <img src="../css/images/JETLogoWhite.png" alt="" />
+      </div>
     </div>
     <div class="container">
-      <div class="restaurantInfo">
-        <div class="flex-container">
-          <div class="logo"></div>
+      <div class="top-section">
+        <div class="nav-btn">
+          <i data-feather="chevron-left" style="color: black"></i>
+        </div>
+        <div class="restaurantInfo">
+          <div class="top-container">
+            <div class="logo"></div>
+            <div class="restaurant-name">
+              <span>Restaurant Name</span>
+            </div>
+          </div>
+          <div class="bottom-container">
+            <div class="rating">
+              <span>Rating 5.0</span>
+            </div>
+            <div class="cuisines">
+              <span>Breakfast | Italian</span>
+            </div>
+            <div class="address">
+              <span>Address</span>
+            </div>
+          </div>
+        </div>
+        <div class="nav-btn">
+          <i data-feather="chevron-right" style="color: black"></i>
         </div>
       </div>
+
       <div class="map">
         <iframe
           src="https://www.google.com/maps?q=[5-7 Clerkenwell Green, EC1R 0DE, London]&output=embed"
@@ -24,5 +49,9 @@
       </div>
     </div>
     <script src="../scripts/restaurantInfoScript.js"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script>
+      feather.replace();
+    </script>
   </body>
 </html>

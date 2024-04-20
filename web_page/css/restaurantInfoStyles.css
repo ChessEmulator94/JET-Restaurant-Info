@@ -11,6 +11,22 @@
   font-style: normal;
 }
 
+/* Bold */
+@font-face {
+  font-family: "JETSans";
+  src: url("JETSans/JETSans-Bold.otf") format("opentype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+/* Extra Bold */
+@font-face {
+  font-family: "JETSans";
+  src: url("JETSans/JETSans-ExtraBold.otf") format("opentype");
+  font-weight: 800; /* or any weight above 700 */
+  font-style: normal;
+}
+
 body {
   font-family: "JETSans", sans-serif;
   margin: 0;
@@ -27,37 +43,111 @@ body {
   flex-direction: column;
 }
 
-.headerBar {
+.header {
   background-color: var(--jet-color);
-  color: white;
-  min-height: 90px;
+  color: #fff;
+  height: 90px;
   text-align: center;
-  font-family: "JETSans";
-  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  .jet-logo img {
+    height: 50%;
+    padding-left: 18%;
+  }
 }
 
-.restaurantInfo {
-  width: 600px;
+.top-section {
   height: 400px;
-  border-radius: 10px;
-  margin-bottom: 5px;
-  background-color: white;
-  border: solid white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .restaurantInfo {
+    width: 600px;
+    height: 100%;
+    border-radius: 10px;
+    background-color: white;
+    border: solid white;
+  }
+
+  .nav-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 15%;
+    width: 50px;
+    background-color: white;
+    border-radius: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .nav-btn:hover {
+    filter: brightness(97%);
+    cursor: hand;
+  }
+
+  .nav-btn:active {
+    scale: 0.95;
+  }
 }
 
-.flex-container {
+.top-container {
   display: flex;
   justify-content: start;
   align-items: center;
   flex-direction: column;
+  height: 50%;
+  width: 100%;
+  border-radius: 10px;
+  background-size: 100%;
+  background-image: url("https://just-eat-prod-eu-res.cloudinary.com/image/upload/c_fill,f_auto,q_auto,w_425,d_uk:cuisines:breakfast-5.jpg/v1/uk/restaurants");
+  .logo {
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-bottom: 19px;
+    background-image: url();
+  }
+
+  .restaurant-name {
+    background-color: white;
+    border-radius: 100px;
+    padding: 10px;
+    padding-right: 20px;
+    padding-left: 20px;
+    font-size: xx-large;
+    font-weight: bold;
+  }
 }
 
-.logo {
-  width: 100px;
-  height: 100px;
-  border-radius: 10px;
-  margin-top: 10px;
-  background-color: red;
+.bottom-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 50%;
+  .rating {
+    height: 33%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .cuisines {
+    height: 33%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .address {
+    height: 33%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
 
 .map {
