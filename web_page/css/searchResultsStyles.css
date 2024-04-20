@@ -29,11 +29,111 @@ body {
   align-items: center;
 }
 
+.sub-header {
+  display: flex;
+  flex-direction: row;
+  height: 54px;
+  padding-left: 3.8%;
+  padding-right: 3.8%;
+  margin-top: 10px;
+  background-color: var(--bg-white-);
+}
+
+.location-details {
+  height: 98%;
+  width: 150px;
+  background-color: white;
+  border-radius: 30px;
+  align-self: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  .location-pin {
+    padding-left: 10%;
+  }
+  .location-name {
+    padding-left: 10%;
+    justify-self: center;
+  }
+}
+
+.search-bar {
+  height: 98%;
+  width: 30%;
+  background-color: none;
+  border-radius: 30px;
+  align-self: center;
+  margin-left: 23.5%;
+  display: flex;
+
+  .search-field {
+    height: 100%;
+    width: 60%;
+    background-color: white;
+    border-width: 0px;
+    border-radius: 30px;
+    text-align: center;
+    margin-left: 15%;
+    border-color: none;
+    font-family: "JETSans";
+    font-size: medium;
+  }
+
+  .search-btn {
+    background-color: var(--jet-color);
+    border-radius: 100px;
+    width: 14%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+  }
+
+  .search-btn:hover {
+    filter: brightness(92%);
+    cursor: hand;
+    opacity: 90%;
+  }
+
+  .search-btn:active {
+    scale: 0.95;
+  }
+}
+
+.navigation-button-container {
+  width: 9%;
+  height: 98%;
+  background-color: none;
+  border-radius: 30px;
+  margin-left: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+
+  .navigation-btn {
+    justify-self: flex-end;
+    border-radius: 50px;
+    padding: 13px;
+    background-color: white;
+    margin-right: 5px;
+  }
+
+  .navigation-btn:hover {
+    filter: brightness(97%);
+    cursor: hand;
+  }
+
+  .navigation-btn:active {
+    scale: 0.95;
+  }
+}
+
 .restaurant-grid {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  padding: 20px;
 }
 
 .grid-row {
@@ -70,6 +170,7 @@ body {
   width: auto;
   object-fit: cover;
   padding: 10px;
+  border-radius: 100px;
   /* //border: white solid 1px; */
 }
 
