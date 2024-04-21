@@ -39,47 +39,63 @@ rightArrow.addEventListener("click", () => {
 // Show listing 1 info
 listing1.addEventListener("click", () => {
   let selectedRestaurantID = listing1.dataset.restaurantID;
-  loadNextScreen(selectedRestaurantID);
+  let selectedRestaurantPosition = listing1.dataset.positionInJSON;
+  loadNextScreen(selectedRestaurantID, selectedRestaurantPosition);
 });
 // Show listing 2 info
 listing2.addEventListener("click", () => {
   let selectedRestaurantID = listing2.dataset.restaurantID;
-  loadNextScreen(selectedRestaurantID);
+  let selectedRestaurantPosition = listing2.dataset.positionInJSON;
+  loadNextScreen(selectedRestaurantID, selectedRestaurantPosition);
 });
 // Show listing 3 info
 listing3.addEventListener("click", () => {
   let selectedRestaurantID = listing3.dataset.restaurantID;
-  loadNextScreen(selectedRestaurantID);
+  let selectedRestaurantPosition = listing3.dataset.positionInJSON;
+
+  loadNextScreen(selectedRestaurantID, selectedRestaurantPosition);
 });
 // Show listing 4 info
 listing4.addEventListener("click", () => {
   let selectedRestaurantID = listing4.dataset.restaurantID;
-  loadNextScreen(selectedRestaurantID);
+  let selectedRestaurantPosition = listing4.dataset.positionInJSON;
+
+  loadNextScreen(selectedRestaurantID, selectedRestaurantPosition);
 });
 // Show listing 5 info
 listing5.addEventListener("click", () => {
   let selectedRestaurantID = listing5.dataset.restaurantID;
-  loadNextScreen(selectedRestaurantID);
+  let selectedRestaurantPosition = listing5.dataset.positionInJSON;
+
+  loadNextScreen(selectedRestaurantID, selectedRestaurantPosition);
 });
 // Show listing 6 info
 listing6.addEventListener("click", () => {
   let selectedRestaurantID = listing6.dataset.restaurantID;
-  loadNextScreen(selectedRestaurantID);
+  let selectedRestaurantPosition = listing6.dataset.positionInJSON;
+
+  loadNextScreen(selectedRestaurantID, selectedRestaurantPosition);
 });
 // Show listing 7 info
 listing7.addEventListener("click", () => {
   let selectedRestaurantID = listing7.dataset.restaurantID;
-  loadNextScreen(selectedRestaurantID);
+  let selectedRestaurantPosition = listing7.dataset.positionInJSON;
+
+  loadNextScreen(selectedRestaurantID, selectedRestaurantPosition);
 });
 // Show listing 8 info
 listing8.addEventListener("click", () => {
   let selectedRestaurantID = listing8.dataset.restaurantID;
-  loadNextScreen(selectedRestaurantID);
+  let selectedRestaurantPosition = listing8.dataset.positionInJSON;
+
+  loadNextScreen(selectedRestaurantID, selectedRestaurantPosition);
 });
 // Show listing 9 info
 listing9.addEventListener("click", () => {
   let selectedRestaurantID = listing9.dataset.restaurantID;
-  loadNextScreen(selectedRestaurantID);
+  let selectedRestaurantPosition = listing9.dataset.positionInJSON;
+
+  loadNextScreen(selectedRestaurantID, selectedRestaurantPosition);
 });
 
 /* When window loads, do the following:
@@ -174,6 +190,7 @@ const updateView = (allRestaurants) => {
     const cuisineArray =
       allRestaurantsJSON[0][listingToUse].Cuisines.split(" | ");
     // Update the elements
+    listingElement.dataset.positionInJSON = listingToUse;
     listingElement.dataset.restaurantID = restID;
     imgElement.src = allRestaurantsJSON[0][listingToUse].LogoURL;
     nameSpan.textContent = allRestaurantsJSON[0][listingToUse].RestaurantName;
@@ -246,9 +263,11 @@ const checkNavigationButtons = () => {
 };
 
 // Load restaurantInfoView with the selected restaurant's ID
-const loadNextScreen = (selectedRestaurantID) => {
+const loadNextScreen = (selectedRestaurantID, selectedRestaurantPosition) => {
   const nextPage = `./restaurantInfoView.html?id=${encodeURIComponent(
     selectedRestaurantID
-  )}&postcode=${globalPostCode}`;
+  )}&postcode=${encodeURIComponent(
+    globalPostCode
+  )}&jsonPosition=${encodeURIComponent(selectedRestaurantPosition)}`;
   window.location.href = nextPage;
 };
