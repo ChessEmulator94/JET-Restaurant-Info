@@ -43,7 +43,29 @@ export const getRestaurants = async (postCode) => {
   );
   return result;
 };
-
+// Get restaurants with a specific postcode and cuisine
+export const getRestaurantsWithFilter = async (postCode, cuisine) => {
+  const result = await pool.query(
+    `
+      SELECT
+          r.id,
+          r.RestaurantName,
+          r.Rating,
+          r.Address,
+          r.LogoURL
+      FROM Restaurants r
+          INNER JOIN RestaurantPostCodes rpc ON r.id = rpc.RestaurantID
+          INNER JOIN PostCodes pc ON rpc.PostCodeID = pc.id
+          INNER JOIN RestaurantCuisines rc ON r.id = rc.RestaurantID
+          INNER JOIN Cuisines c ON rc.CuisineID = c.id
+      WHERE
+          pc.PostCode = ?
+          AND c.Cuisine = ?
+    `,
+    [postCode, cuisine]
+  );
+  return result[0];
+};
 // Get restaurants for given postcode from JET API
 const fetchRestaurants = async (postCode) => {
   const url = `https://uk.api.just-eat.io/discovery/uk/restaurants/enriched/bypostcode/${postCode}`;
