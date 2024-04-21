@@ -12,7 +12,8 @@
   "license": "MIT",
   "dependencies": {
     "express": "^4.16.4",
-    "mysql2": "^3.9.5"
+    "mysql2": "^3.9.5",
+      "cors": "^2.8.5"
   },
   "devDependencies": {},
   "repository": {
