@@ -28,12 +28,13 @@ jetLogo.addEventListener("click", () => {
 leftNavBtn.addEventListener("click", () => {
   changeRestaurant(-1);
   updateDisplayedRestaurant(allRestaurantsJSON[0][restaurantPositionInJSON]);
+  checkNavigationButtons();
 });
 // Right-chevron button
 rightNavBtn.addEventListener("click", () => {
   changeRestaurant(1);
-  console.log(allRestaurantsJSON[0][restaurantPositionInJSON].id);
   updateDisplayedRestaurant(allRestaurantsJSON[0][restaurantPositionInJSON]);
+  checkNavigationButtons();
 });
 
 // On load of webpage
@@ -43,11 +44,20 @@ document.addEventListener("DOMContentLoaded", () => {
   const restaurantID = urlParams.get("id");
   // Get the value of the "postcode" query parameter from the URL
   globalPostCode = urlParams.get("postcode");
+  // Get the value of the position in the JSON
+  restaurantPositionInJSON = parseInt(urlParams.get("jsonPosition"));
 
   getRestaurantInfo(restaurantID).then((response) => {
-    const restaurant = JSON.parse(response);
-    updateDisplayedRestaurant(restaurant);
-    findRestaurantPosition(restaurantID, globalPostCode);
+    let restaurantInfo = JSON.parse(response);
+    updateDisplayedRestaurant(restaurantInfo);
+  });
+
+  // Get all restaurants associated with postCode
+  getRestaurants(globalPostCode).then((response) => {
+    let allRestaurants = response;
+    // Get JSON of restaurants
+    allRestaurantsJSON = JSON.parse(allRestaurants);
+    checkNavigationButtons();
   });
 });
 
@@ -92,21 +102,6 @@ const changeRestaurant = (direction) => {
   }
 };
 
-// Determines which restaurant was selected
-const findRestaurantPosition = (restaurantID, postCode) => {
-  // Get all restaurants associated with postCode
-  getRestaurants(postCode).then((response) => {
-    let allRestaurants = response;
-    console.log(allRestaurants);
-    // Get JSON of restaurants
-    allRestaurantsJSON = JSON.parse(allRestaurants);
-    // Get the index of thte restaurant within the JSON
-    restaurantPositionInJSON = allRestaurantsJSON[0].findIndex(
-      (restaurant) => restaurant.id == restaurantID
-    );
-  });
-};
-
 // Finds the first valid cuisine image from an array of cuisines
 const getFirstValidCuisineImage = (cuisineArray, restID) => {
   const findValidImage = async () => {
@@ -136,18 +131,16 @@ const isImageOk = (url) => {
   });
 };
 
+// Updates shown restaurant details
 const updateDisplayedRestaurant = (restaurant) => {
   let cuisineArray;
-
   // Update logo
   restaurantLogo.style.backgroundImage = `url(${restaurant.LogoURL})`;
-
   // Update name
   restaurantName.textContent = restaurant.RestaurantName;
-
   // Update rating
   restaurantRating.textContent = `Rating ${restaurant.Rating}`;
-
+  // Account for inconsistency in cuisine property spelling
   if (restaurant.hasOwnProperty("Cuisines")) {
     restaurantCuisines.textContent = restaurant.Cuisines;
     cuisineArray = restaurant.Cuisines.split(" | ");
@@ -155,16 +148,44 @@ const updateDisplayedRestaurant = (restaurant) => {
     restaurantCuisines.textContent = restaurant.cuisines.join(" | ");
     cuisineArray = restaurant.cuisines;
   }
-
+  cuisineArray.sort();
   // Update address
   restaurantAddress.textContent = restaurant.Address;
-
   // Get the <iframe> element
   // Update the src attribute of the <iframe>
   locationMapIframe.src = `https://www.google.com/maps?q=[${restaurant.Address}]&output=embed`;
-
-  // Get a valid cuisine image and updatet the background food image
+  // Get a valid cuisine image and update the background food image
   getFirstValidCuisineImage(cuisineArray, restaurant.id).then((imageUrl) => {
     topContainer.style.backgroundImage = `url('${imageUrl}')`;
   });
+};
+
+// Check if the navigation buttons need to be disabled/enabled
+const checkNavigationButtons = () => {
+  // RIGHT BUTTON
+  if (restaurantPositionInJSON == allRestaurantsJSON[0].length - 1) {
+    // Disable right navigation button
+    rightNavBtn.style.pointerEvents = "none";
+    rightNavBtn.style.opacity = "0.5";
+    rightNavBtn.style.cursor = "default";
+  } else {
+    // Enable right navigation button
+    rightNavBtn.style.pointerEvents = "auto";
+    rightNavBtn.style.opacity = "1";
+    rightNavBtn.style.cursor = "pointer";
+  }
+  // LEFT BUTTON
+  if (restaurantPositionInJSON == 0) {
+    // Disable left navigation button
+    leftNavBtn.style.pointerEvents = "none";
+    leftNavBtn.style.opacity = "0.5";
+    leftNavBtn.style.cursor = "default";
+  } else {
+    // Enable left navigation button
+    leftNavBtn.style.pointerEvents = "auto";
+    leftNavBtn.style.opacity = "1";
+    leftNavBtn.style.cursor = "pointer";
+  }
+
+  // TODO: Add check for right button at end of list
 };
