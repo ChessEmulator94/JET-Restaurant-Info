@@ -8,10 +8,14 @@
 2. Install node by running `brew install node`
 3. Install npm by running `brew install npm`
 4. Navigate to the project directory
-5. Install project dependencies by running `node install`
+5. Install project dependencies by running `npm install`
 
 
 ### Create the DB Schema:
+
+NOTE: 
+> It is highly suggested to install mysql workbench from `https://dev.mysql.com/downloads/workbench/` and configure your account from there. Once that is done, install mysql through brew so that you can use terminal to create the database with ease
+> Without configuring the account in workbench, you may run into an issue whereby your localhost can't access the local database, if this happens you can consult `https://help.ubuntu.com/community/MysqlPasswordReset`
 
 1.  Open terminal
 3.  Install mysql by running `brew install mysql`
@@ -34,7 +38,11 @@
 
 ### Using the web app:
 
-1.  Open `JUSTEAT/web_page/views/indexView.html` in Google Chrome
+1.  Open `/web_page/views/indexView.html` in Google Chrome
+2.  Search using any UK postcode
+3.  Select a filter from the filter drop down menu in the center to restrict results to those of that cuisine type
+4.  Click on the arrow keys in the top right to show more results
+5.  Click on a listing to view a map of the restaurant and see it's details alone
 
 
 
