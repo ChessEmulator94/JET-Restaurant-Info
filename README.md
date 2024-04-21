@@ -1,4 +1,4 @@
-# JET Restaurant Finder @README
+# JET Restaurant Finder 
 
 ## SETUP (Mac)
 
@@ -14,8 +14,8 @@
 ### Create the DB Schema:
 
 NOTE: 
-> It is highly suggested to install mysql workbench from `https://dev.mysql.com/downloads/workbench/` and configure your account from there. Once that is done, install mysql through brew so that you can use terminal to create the database with ease
-> Without configuring the account in workbench, you may run into an issue whereby your localhost can't access the local database, if this happens you can consult `https://help.ubuntu.com/community/MysqlPasswordReset`
+- It is highly suggested to install mysql workbench from `https://dev.mysql.com/downloads/workbench/` and configure your account from there. Once that is done, install mysql through brew so that you can use terminal to create the database with ease
+- Without configuring the account in workbench, you may run into an issue whereby your localhost can't access the local database, if this happens you can consult `https://help.ubuntu.com/community/MysqlPasswordReset`
 
 1.  Open terminal
 3.  Install mysql by running `brew install mysql`
@@ -65,9 +65,9 @@ followed by the reverse
 - Adjust the way HTML elements are styled by better making use of percentages and calculations, to allow for consistent sizing
 - Have the filters be dynamic based on the cuisines that are within the returned restaurants
 - restaurantInfoView.html design
-  > Add icons for all cuisines
-  > Add stars icons to indicate the rating
-  > Make previous and next listings in the carousel show smaller and faded on the sides
+  - Add icons for all cuisines
+  - Add stars icons to indicate the rating
+  - Make previous and next listings in the carousel show smaller and faded on the sides
 
 
 
@@ -76,15 +76,15 @@ followed by the reverse
 - When applying a filter, only that cuisine displays under each restaurant listing
   > This is due to the response from the database query and should be a relatively simple fix
 - After applying a filter and selecting a restaurant, the navigation buttons still work on the originally searched data set
-  > This is due to the restaurantInfoScript.js re-querying the database without the filter
-  > Initially, before filters were added, this was done so that the entire restaurantData list doesn't need to be passed in the URL
-  > The intended fix for this is to add a "cuisine" flag when the restaurantInfoView.html is shown, that calls the correct database query
+  - This is due to the restaurantInfoScript.js re-querying the database without the filter
+  - Initially, before filters were added, this was done so that the entire restaurantData list doesn't need to be passed in the URL
+  - The intended fix for this is to add a "cuisine" flag when the restaurantInfoView.html is shown, that calls the correct database query
 
 
 
 ## NOTES
 
 - There are inconsistencies in the implementation of the display because:
-  > I am relatively new to front-end and was experimenting with different methods of achieving the effect I wanted
-  > I progressively started to get more comfortable with certain techniques and thus used them more
+  - I am relatively new to front-end and was experimenting with different methods of achieving the effect I wanted
+  - I progressively started to get more comfortable with certain techniques and thus used them more
 - I used the JET website and delivery apps as inspiration, but all of the css and html was made myself, I did not copy from the sites
