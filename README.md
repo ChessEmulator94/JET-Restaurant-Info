@@ -11,12 +11,29 @@
 5. Install project dependencies by running `npm install`
 
 
-### Create the DB Schema:
+### MySWQ and creating the DB Schema:
 
 NOTE: 
-- It is highly suggested to install mysql workbench from `https://dev.mysql.com/downloads/workbench/` and configure your account from there. Once that is done, install mysql through brew so that you can use terminal to create the database with ease
+- It is highly suggested to install mysql workbench and configure your account from there. Once that is done, install mysql through brew so that you can use terminal to create the database with ease
 - Without configuring the account in workbench, you may run into an issue whereby your localhost can't access the local database, if this happens you can consult `https://help.ubuntu.com/community/MysqlPasswordReset`
 
+(Preferred)
+1. Download mysql and mysql workbench from `https://dev.mysql.com/downloads/workbench/`
+2. Set up an account and password (or add a password to the root account)
+3. Open terminal
+4. Install mysql by running `brew install mysql`
+5. Start MYSQL by running `brew services start mysql`
+6. Open MySQL prompt by running `mysql -u [your_mysql_username] -p[your_password]`
+    - From a fresh install of mysql you can use `mysql -u root -p` for this step
+    - If you do have a password, make sure there is no space between -p and [your_password]
+7.  Within the MySQL prompt, create the database by running `CREATE DATABASE restaurantsDB;`
+8.  Exit MySQL prompt by running `EXIT;`
+8.  Navigate to the project directory, then to `/server`
+9.  Run `mysql -u [your_mysql_username] -p[your_password] restaurantsDB < schema.sql`
+    (Note there should be no space between -p and [your_password])
+    (By default username will be root and password will be empty so you can run `mysql -u root -p restaurantsDB < schema.sql`) and hit enter if prompted for a password)
+
+(Alternate)
 1.  Open terminal
 3.  Install mysql by running `brew install mysql`
 4.  Start MYSQL by running `brew services start mysql`
@@ -33,14 +50,14 @@ NOTE:
 
 ### Start running the server:
 
-1.  Navigate to `/JUSTEAT/server` in terminal
+1.  Navigate to the project directory then to `/server` in terminal
 2.  Run `node server.js`
 
 ### Using the web app:
 
 1.  Open `/web_page/views/indexView.html` in Google Chrome
 2.  Search using any UK postcode
-3.  Select a filter from the filter drop down menu in the center to restrict results to those of that cuisine type
+3.  Select a filter from the filter drop-down menu in the center to restrict results to those of that cuisine type
 4.  Click on the arrow keys in the top right to show more results
 5.  Click on a listing to view a map of the restaurant and see it's details alone
 
