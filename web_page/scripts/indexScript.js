@@ -1,6 +1,7 @@
 // Get elements from the DOM
 const searchButton = document.querySelector(".search-btn");
 const searchBar = document.querySelector(".search-input");
+const errorMessage = document.querySelector(".error-msg span");
 
 // Set the db server URL
 const SERVER_URL = `http://localhost:5500`;
@@ -10,6 +11,13 @@ searchButton.addEventListener("click", () => {
   submitSearch();
 });
 
+// Checks if any text is typed -> removes the error msg
+searchBar.addEventListener("input", (event) => {
+  // Make error message dissapear
+  errorMessage.style.color = "white";
+});
+
+// Searches on Enter being pressed
 searchBar.addEventListener("keyup", (event) => {
   // If the Enter key was pressed
   if (event.key === "Enter") {
@@ -17,6 +25,12 @@ searchBar.addEventListener("keyup", (event) => {
   }
 });
 
+/* Get postcode from the screen
+ * Validate that it's a valid postcode
+ *  IF (valid) -> load next screen
+ *
+ *  ELSE -> Show error message
+ */
 const submitSearch = () => {
   // Get post code from screen
   let postCode = searchBar.value;
@@ -29,11 +43,11 @@ const submitSearch = () => {
     const nextPage = `./searchResultsView.html?postCode=${encodeURIComponent(
       postCode
     )}`;
-
     // Load results window
     window.location.href = nextPage;
   } else {
-    console.log("Invalid postcode");
+    // Make error message appear
+    errorMessage.style.color = "rgb(167, 0, 0)";
   }
 };
 

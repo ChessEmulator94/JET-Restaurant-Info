@@ -130,7 +130,7 @@ body {
       margin-top: 10px;
     }
     .error-msg span {
-      color: rgb(167, 0, 0);
+      color: white;
     }
   }
 }
