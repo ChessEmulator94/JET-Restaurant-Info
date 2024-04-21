@@ -5,6 +5,7 @@ let allRestaurantsLong; // Stores all restaurants from a search
 let globalPostCode; // Store postCode of current search
 
 /* GET ELEMENTS FROM DOM */
+
 // Logo
 const jetLogo = document.querySelector(".jet-logo");
 // Address
@@ -35,10 +36,12 @@ const radioBtn3 = document.getElementById("radio-option-3");
 const resetFilterBtn = document.querySelector(".reset-radio-btn");
 
 /* EVENT LISTENERS */
+
 // Go to home screen
 jetLogo.addEventListener("click", () => {
   window.location.href = "./indexView.html";
 });
+
 // Display the filter menu
 filterMenu.addEventListener("click", () => {
   // Rotate the chevron
@@ -53,86 +56,131 @@ radioBtn2.addEventListener("click", handleRadioClick);
 radioBtn3.addEventListener("click", handleRadioClick);
 // Radio button function
 function handleRadioClick(event) {
+  // Rotate the chevron
+  filterChevron.classList.toggle("rotated");
+  // Hide the dropdown
+  filterDropdown.classList.toggle("shown");
+  filterDropdown.classList.toggle("hidden");
   const selectedOption = event.target.value;
   // Perform actions based on the selected option
   switch (selectedOption) {
     case "Breakfast":
-      // Do something for breakfast
-      console.log("Breakfast option selected");
+      // Get restaurants with cuisine of selectedOption
+      getRestaurantsWithFilter(globalPostCode, selectedOption).then(
+        (response) => {
+          allRestaurantsLong = response;
+          // Update the listings
+          updateView(response);
+        }
+      );
       break;
     case "Lunch":
-      // Do something for lunch
-      console.log("Lunch option selected");
+      // Get restaurants with cuisine of selectedOption
+      getRestaurantsWithFilter(globalPostCode, selectedOption).then(
+        (response) => {
+          allRestaurantsLong = response;
+          // Update the listings
+          updateView(response);
+        }
+      );
       break;
-    case "Dinner":
-      // Do something for dinner
-      console.log("Dinner option selected");
+    case "Pizza":
+      // Get restaurants with cuisine of selectedOption
+      getRestaurantsWithFilter(globalPostCode, selectedOption).then(
+        (response) => {
+          allRestaurantsLong = response;
+          // Update the listings
+          updateView(response);
+        }
+      );
       break;
   }
 }
+
 // Add event listener to the reset button
 resetFilterBtn.addEventListener("click", () => {
+  // Uncheck radio buttons
   radioBtn1.checked = false;
   radioBtn2.checked = false;
   radioBtn3.checked = false;
+  // Rotate the chevron
+  filterChevron.classList.toggle("rotated");
+  // Hide the dropdown
+  filterDropdown.classList.toggle("shown");
+  filterDropdown.classList.toggle("hidden");
+  // Get originally requested results and update display
+  getRestaurants(globalPostCode).then((response) => {
+    allRestaurantsLong = response;
+    updateView(allRestaurantsLong);
+  });
 });
+
 // View previous restaurants
 leftArrow.addEventListener("click", () => {
   viewNextRestaurants(-9);
 });
+
 // View next restaurants
 rightArrow.addEventListener("click", () => {
   viewNextRestaurants(9);
 });
+
 // Show listing 1 info
 listing1.addEventListener("click", () => {
   let selectedRestaurantID = listing1.dataset.restaurantID;
   let selectedRestaurantPosition = listing1.dataset.positionInJSON;
   loadNextScreen(selectedRestaurantID, selectedRestaurantPosition);
 });
+
 // Show listing 2 info
 listing2.addEventListener("click", () => {
   let selectedRestaurantID = listing2.dataset.restaurantID;
   let selectedRestaurantPosition = listing2.dataset.positionInJSON;
   loadNextScreen(selectedRestaurantID, selectedRestaurantPosition);
 });
+
 // Show listing 3 info
 listing3.addEventListener("click", () => {
   let selectedRestaurantID = listing3.dataset.restaurantID;
   let selectedRestaurantPosition = listing3.dataset.positionInJSON;
-
   loadNextScreen(selectedRestaurantID, selectedRestaurantPosition);
 });
+
 // Show listing 4 info
 listing4.addEventListener("click", () => {
   let selectedRestaurantID = listing4.dataset.restaurantID;
   let selectedRestaurantPosition = listing4.dataset.positionInJSON;
   loadNextScreen(selectedRestaurantID, selectedRestaurantPosition);
 });
+
 // Show listing 5 info
 listing5.addEventListener("click", () => {
   let selectedRestaurantID = listing5.dataset.restaurantID;
   let selectedRestaurantPosition = listing5.dataset.positionInJSON;
   loadNextScreen(selectedRestaurantID, selectedRestaurantPosition);
 });
+
 // Show listing 6 info
 listing6.addEventListener("click", () => {
   let selectedRestaurantID = listing6.dataset.restaurantID;
   let selectedRestaurantPosition = listing6.dataset.positionInJSON;
   loadNextScreen(selectedRestaurantID, selectedRestaurantPosition);
 });
+
 // Show listing 7 info
 listing7.addEventListener("click", () => {
   let selectedRestaurantID = listing7.dataset.restaurantID;
   let selectedRestaurantPosition = listing7.dataset.positionInJSON;
   loadNextScreen(selectedRestaurantID, selectedRestaurantPosition);
 });
+
 // Show listing 8 info
 listing8.addEventListener("click", () => {
   let selectedRestaurantID = listing8.dataset.restaurantID;
   let selectedRestaurantPosition = listing8.dataset.positionInJSON;
   loadNextScreen(selectedRestaurantID, selectedRestaurantPosition);
 });
+
 // Show listing 9 info
 listing9.addEventListener("click", () => {
   let selectedRestaurantID = listing9.dataset.restaurantID;
@@ -166,12 +214,15 @@ document.addEventListener("DOMContentLoaded", () => {
         .then((response) => {
           // After getRestaurants finishes, update the display
           allRestaurantsLong = response;
+          console.log(response);
           updateView(response);
         });
     } else {
       getRestaurants(postCode).then((response) => {
         // Update the display
         allRestaurantsLong = response;
+        console.log(response);
+
         updateView(response);
       });
     }
@@ -179,6 +230,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 /* SERVER REQUEST FUNCTIONS */
+
 // Call dbHandler.js checkPostcodeExists() via server
 const checkPostcodeExists = (postCode) => {
   let queryURL = `${SERVER_URL}/checkExists/${postCode}`;
@@ -188,6 +240,7 @@ const checkPostcodeExists = (postCode) => {
       return text; // true or false
     });
 };
+
 // Call dbHandler.js addListings() via server
 const addRestaurantsToDb = (postCode) => {
   let queryURL = `${SERVER_URL}/add-restaurants/${postCode}`;
@@ -197,6 +250,7 @@ const addRestaurantsToDb = (postCode) => {
       return text; // All added restaurants associated with postCode
     });
 };
+
 // Call dbHandler.js getRestaurants() via server
 const getRestaurants = (postCode) => {
   let queryURL = `${SERVER_URL}/restaurants/${postCode}`;
@@ -207,7 +261,19 @@ const getRestaurants = (postCode) => {
     });
 };
 
+// Call dbHandler.js getRestaurantsWithFilter() via server
+const getRestaurantsWithFilter = (postCode, cuisine) => {
+  const queryURL = `${SERVER_URL}/restaurants/${postCode}/${cuisine}`;
+
+  return fetch(queryURL, {})
+    .then((response) => response.text())
+    .then((text) => {
+      return text; // Restaurants matching the postcode and cuisine
+    });
+};
+
 /* GENERAL FUNCTIONS */
+
 // Change grid elements to show restaurant data
 const updateView = (allRestaurants) => {
   // Get JSON or restaurants
@@ -281,6 +347,7 @@ const getFirstValidCuisineImage = (cuisineArray, restID) => {
 const updateAreaPin = (postCode) => {
   displayedArea.textContent = postCode;
 };
+
 // Displays the previous or next restaurants (9)
 const viewNextRestaurants = (direction) => {
   listingOffset += direction;
