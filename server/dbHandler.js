@@ -146,7 +146,9 @@ const storeRestaurantEssentials = async (allRestaurants, postCode) => {
     const postcodeIds = await insertPostcodes(postCode);
     await insertRestaurantPostcodes(restaurantId, postcodeIds);
   }
-  console.log(`Restaurants associated with postcode ${postCode} added`);
+  console.log(
+    `Restaurants associated with postcode ${postCode} added to database`
+  );
 };
 
 // Inserts row into Restaurants table
