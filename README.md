@@ -1,13 +1,31 @@
 # JET Restaurant Finder @README
 
-## SETUP
+## SETUP (Mac)
 
-### Create the DB Schema (Mac):
+### Node and NPM
 
-1.  Install mysql using `brew install mysql` and set up a username and password
-2.  Navigate to `/JUSTEAT/server` in terminal
-3.  Run `mysql -u [your_mysql_username] -p[your_password] restaurantsDB < schema.sql`
+1. Open terminal
+2. Install node by running `brew install node`
+3. Install npm by running `brew install npm`
+4. Navigate to the project directory
+5. Install project dependencies by running `node install`
+
+
+### Create the DB Schema:
+
+1.  Open terminal
+3.  Install mysql by running `brew install mysql`
+4.  Start MYSQL by running `brew services start mysql`
+    > By default you can use user `root` and no password
+5.  Open MySQL prompt by running `mysql -u [your_mysql_username] -p[your_password]`
+    > From a fresh install of mysql you can use `mysql -u root -p` for this step
+    > If you do have a password, make sure there is no space between -p and [your_password]
+6.  Within the MySQL prompt, create the database by running `CREATE DATABASE restaurantsDB;`
+7.  Exit MySQL prompt by running `EXIT;`
+8.  Navigate to the project directory, then to `/server`
+9.  Run `mysql -u [your_mysql_username] -p[your_password] restaurantsDB < schema.sql`
     (Note there should be no space between -p and [your_password])
+    (By default username will be root and password will be empty so you can run `mysql -u root -p restaurantsDB < schema.sql`) and hit enter if prompted for a password)
 
 ### Start running the server:
 
