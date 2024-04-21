@@ -3,6 +3,7 @@ import bodyParser from "body-parser";
 import express, { json, response } from "express";
 import {
   getRestaurants,
+  getRestaurantsWithFilter,
   checkPostcodeExists,
   addListings,
   getRestaurantInfo,
@@ -25,6 +26,17 @@ app.use(cors());
 app.get("/restaurants/:postCode", (req, res) => {
   let postCode = req.params.postCode;
   getRestaurants(postCode).then((response) => {
+    res.send(response);
+  });
+});
+
+// Call getRestaurantsWithFilter() on dbHandler.js
+// Returns restaurants associated with a postcode and cuisine
+app.get("/restaurants/:postCode/:cuisine", (req, res) => {
+  const postCode = req.params.postCode;
+  const cuisine = req.params.cuisine;
+  //res.send("HELLO");
+  getRestaurantsWithFilter(postCode, cuisine).then((response) => {
     res.send(response);
   });
 });
