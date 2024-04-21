@@ -50,6 +50,7 @@ body {
   padding-right: 3.8%;
   margin-top: 10px;
   background-color: var(--bg-white-);
+  position: relative;
 
   /* Location pin & postcode */
   .location-details {
@@ -114,6 +115,96 @@ body {
     .search-btn:active {
       scale: 0.95;
     }
+  }
+
+  .filter-menu {
+    height: 98%;
+    width: 140px;
+    background-color: white;
+    border-radius: 100px;
+    margin-left: 33%;
+    display: flex;
+    align-items: center;
+
+    span {
+      font-size: larger;
+      padding-left: 30px;
+      padding-right: 10px;
+    }
+
+    .filter-chevron {
+      transition-duration: 0.3s;
+    }
+    .filter-chevron:hover {
+      transform: rotate(180deg);
+    }
+  }
+
+  .filter-dropdown {
+    width: 180px;
+    height: 195px;
+    background-color: var(--bg-white);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    position: absolute;
+    top: 130%;
+    left: 43%;
+    border-radius: 7px;
+    font-size: larger;
+    /* display: none; */
+
+    .filter-options {
+      display: flex;
+      flex-direction: column;
+      /* align-items: center; */
+
+      .option {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding-left: 22px;
+        padding-bottom: 20px;
+      }
+
+      .option-1 {
+        margin-top: 20px;
+      }
+
+      .reset-radio-btn {
+        background-color: var(--jet-color);
+        border-radius: 8px;
+        width: min-content;
+        margin-left: 26%;
+
+        span {
+          padding: 15px;
+          color: white;
+        }
+      }
+    }
+  }
+
+  input[type="radio"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    outline: none;
+    border: 2px solid #999;
+  }
+
+  input[type="radio"]:before {
+    content: "";
+    display: block;
+    width: 12px;
+    height: 12px;
+    margin: 2px;
+    border-radius: 50%;
+    background-color: var(--bg-white);
+  }
+
+  input[type="radio"]:checked:before {
+    background-color: var(--jet-color);
   }
 
   .navigation-button-container {

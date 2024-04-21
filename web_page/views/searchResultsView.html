@@ -22,14 +22,23 @@
         </div>
       </div>
       <!-- Additional search bar -->
-      <div class="search-bar">
+      <!-- <div class="search-bar">
         <input type="text" placeholder="Enter Cuisine" class="search-field" />
         <div class="search-btn">
           <div class="icon">
             <i data-feather="search" style="color: white"></i>
           </div>
         </div>
+      </div> -->
+      <div class="filter-menu">
+        <span>Filters</span>
+        <i
+          data-feather="chevron-up"
+          style="color: black"
+          class="filter-chevron"
+        ></i>
       </div>
+
       <!-- Left and right arrows -->
       <div class="navigation-button-container">
         <div class="navigation-btn" id="nav-btn-1">
@@ -39,7 +48,47 @@
           <i data-feather="arrow-right" style="color: black"></i>
         </div>
       </div>
+
+      <!-- Filter Menu -->
+      <div class="filter-dropdown">
+        <div class="filter-options">
+          <div class="option option-1">
+            <input
+              type="radio"
+              id="option-breakfasteon"
+              name="meal"
+              value="Breakfast"
+            />
+            <label for="option-breakfast">Breakfast</label>
+          </div>
+
+          <div class="option">
+            <input
+              type="radio"
+              id="option-luncheon"
+              name="meal"
+              value="Lunch"
+            />
+            <label for="option-breakfast">Lunch</label>
+          </div>
+
+          <div class="option">
+            <input
+              type="radio"
+              id="option-dinnereon"
+              name="meal"
+              value="Dinner"
+            />
+            <label for="option-breakfast">Dinner</label>
+          </div>
+
+          <div class="reset-radio-btn">
+            <span>Reset</span>
+          </div>
+        </div>
+      </div>
     </div>
+
     <!-- Grid of all listings -->
     <div class="restaurant-grid">
       <!-- Start of row 1 -->
