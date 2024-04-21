@@ -126,18 +126,30 @@ body {
     display: flex;
     align-items: center;
 
+    .icon-holder {
+      transition-duration: 0.3s;
+    }
     span {
       font-size: larger;
       padding-left: 30px;
       padding-right: 10px;
     }
+  }
 
-    .filter-chevron {
-      transition-duration: 0.3s;
-    }
-    .filter-chevron:hover {
-      transform: rotate(180deg);
-    }
+  .filter-menu:hover {
+    cursor: hand;
+  }
+
+  .rotated {
+    transform: rotate(180deg);
+  }
+
+  .shown {
+    display: block;
+  }
+
+  .hidden {
+    display: none;
   }
 
   .filter-dropdown {
@@ -150,7 +162,6 @@ body {
     left: 43%;
     border-radius: 7px;
     font-size: larger;
-    /* display: none; */
 
     .filter-options {
       display: flex;
@@ -179,6 +190,11 @@ body {
           padding: 15px;
           color: white;
         }
+      }
+
+      .reset-radio-btn:hover {
+        cursor: hand;
+        filter: brightness(0.95);
       }
     }
   }

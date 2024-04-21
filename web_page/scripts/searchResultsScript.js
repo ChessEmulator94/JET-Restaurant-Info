@@ -22,11 +22,59 @@ const listing6 = document.getElementById("listing6");
 const listing7 = document.getElementById("listing7");
 const listing8 = document.getElementById("listing8");
 const listing9 = document.getElementById("listing9");
+// Filter Button
+const filterMenu = document.querySelector(".filter-menu");
+const filterChevron = document.querySelector(".icon-holder");
+// Dropdown Menu
+const filterDropdown = document.querySelector(".filter-dropdown");
+// Radio buttons
+const radioBtn1 = document.getElementById("radio-option-1");
+const radioBtn2 = document.getElementById("radio-option-2");
+const radioBtn3 = document.getElementById("radio-option-3");
+// Reset button
+const resetFilterBtn = document.querySelector(".reset-radio-btn");
 
 /* EVENT LISTENERS */
 // Go to home screen
 jetLogo.addEventListener("click", () => {
   window.location.href = "./indexView.html";
+});
+// Display the filter menu
+filterMenu.addEventListener("click", () => {
+  // Rotate the chevron
+  filterChevron.classList.toggle("rotated");
+  // Display the dropdown
+  filterDropdown.classList.toggle("shown");
+  filterDropdown.classList.toggle("hidden");
+});
+// Add event listeners to the radio buttons
+radioBtn1.addEventListener("click", handleRadioClick);
+radioBtn2.addEventListener("click", handleRadioClick);
+radioBtn3.addEventListener("click", handleRadioClick);
+// Radio button function
+function handleRadioClick(event) {
+  const selectedOption = event.target.value;
+  // Perform actions based on the selected option
+  switch (selectedOption) {
+    case "Breakfast":
+      // Do something for breakfast
+      console.log("Breakfast option selected");
+      break;
+    case "Lunch":
+      // Do something for lunch
+      console.log("Lunch option selected");
+      break;
+    case "Dinner":
+      // Do something for dinner
+      console.log("Dinner option selected");
+      break;
+  }
+}
+// Add event listener to the reset button
+resetFilterBtn.addEventListener("click", () => {
+  radioBtn1.checked = false;
+  radioBtn2.checked = false;
+  radioBtn3.checked = false;
 });
 // View previous restaurants
 leftArrow.addEventListener("click", () => {
@@ -59,42 +107,36 @@ listing3.addEventListener("click", () => {
 listing4.addEventListener("click", () => {
   let selectedRestaurantID = listing4.dataset.restaurantID;
   let selectedRestaurantPosition = listing4.dataset.positionInJSON;
-
   loadNextScreen(selectedRestaurantID, selectedRestaurantPosition);
 });
 // Show listing 5 info
 listing5.addEventListener("click", () => {
   let selectedRestaurantID = listing5.dataset.restaurantID;
   let selectedRestaurantPosition = listing5.dataset.positionInJSON;
-
   loadNextScreen(selectedRestaurantID, selectedRestaurantPosition);
 });
 // Show listing 6 info
 listing6.addEventListener("click", () => {
   let selectedRestaurantID = listing6.dataset.restaurantID;
   let selectedRestaurantPosition = listing6.dataset.positionInJSON;
-
   loadNextScreen(selectedRestaurantID, selectedRestaurantPosition);
 });
 // Show listing 7 info
 listing7.addEventListener("click", () => {
   let selectedRestaurantID = listing7.dataset.restaurantID;
   let selectedRestaurantPosition = listing7.dataset.positionInJSON;
-
   loadNextScreen(selectedRestaurantID, selectedRestaurantPosition);
 });
 // Show listing 8 info
 listing8.addEventListener("click", () => {
   let selectedRestaurantID = listing8.dataset.restaurantID;
   let selectedRestaurantPosition = listing8.dataset.positionInJSON;
-
   loadNextScreen(selectedRestaurantID, selectedRestaurantPosition);
 });
 // Show listing 9 info
 listing9.addEventListener("click", () => {
   let selectedRestaurantID = listing9.dataset.restaurantID;
   let selectedRestaurantPosition = listing9.dataset.positionInJSON;
-
   loadNextScreen(selectedRestaurantID, selectedRestaurantPosition);
 });
 

@@ -32,11 +32,13 @@
       </div> -->
       <div class="filter-menu">
         <span>Filters</span>
-        <i
-          data-feather="chevron-up"
-          style="color: black"
-          class="filter-chevron"
-        ></i>
+        <div class="icon-holder">
+          <i
+            data-feather="chevron-up"
+            style="color: black"
+            class="filter-chevron"
+          ></i>
+        </div>
       </div>
 
       <!-- Left and right arrows -->
@@ -50,36 +52,31 @@
       </div>
 
       <!-- Filter Menu -->
-      <div class="filter-dropdown">
+      <div class="filter-dropdown hidden">
         <div class="filter-options">
           <div class="option option-1">
             <input
               type="radio"
-              id="option-breakfasteon"
+              id="radio-option-1"
               name="meal"
               value="Breakfast"
             />
-            <label for="option-breakfast">Breakfast</label>
+            <label for="radio-option-1">Breakfast</label>
           </div>
 
-          <div class="option">
-            <input
-              type="radio"
-              id="option-luncheon"
-              name="meal"
-              value="Lunch"
-            />
-            <label for="option-breakfast">Lunch</label>
+          <div class="option option-2">
+            <input type="radio" id="radio-option-2" name="meal" value="Lunch" />
+            <label for="radio-option-2">Lunch</label>
           </div>
 
-          <div class="option">
+          <div class="option option-3">
             <input
               type="radio"
-              id="option-dinnereon"
+              id="radio-option-3"
               name="meal"
               value="Dinner"
             />
-            <label for="option-breakfast">Dinner</label>
+            <label for="radio-option-3">Dinner</label>
           </div>
 
           <div class="reset-radio-btn">
