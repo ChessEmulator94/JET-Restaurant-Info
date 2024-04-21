@@ -52,7 +52,8 @@ export const getRestaurantsWithFilter = async (postCode, cuisine) => {
           r.RestaurantName,
           r.Rating,
           r.Address,
-          r.LogoURL
+          r.LogoURL,
+          GROUP_CONCAT(DISTINCT c.Cuisine SEPARATOR ' | ') AS Cuisines
       FROM Restaurants r
           INNER JOIN RestaurantPostCodes rpc ON r.id = rpc.RestaurantID
           INNER JOIN PostCodes pc ON rpc.PostCodeID = pc.id
@@ -61,10 +62,12 @@ export const getRestaurantsWithFilter = async (postCode, cuisine) => {
       WHERE
           pc.PostCode = ?
           AND c.Cuisine = ?
+      GROUP BY
+          r.id
     `,
     [postCode, cuisine]
   );
-  return result[0];
+  return result;
 };
 // Get restaurants for given postcode from JET API
 const fetchRestaurants = async (postCode) => {
