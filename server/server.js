@@ -52,7 +52,6 @@ app.get("/add-restaurants/:postCode", (req, res) => {
 app.get("/restaurant/:id", (req, res) => {
   let id = req.params.id;
   getRestaurantInfo(id).then((response) => {
-    console.log(response);
     res.send(response);
   });
 });
