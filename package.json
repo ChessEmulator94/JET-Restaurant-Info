@@ -8,9 +8,19 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Gadi Friedman @ChessEmulator94",
+  "license": "MIT",
   "dependencies": {
+    "express": "^4.16.4",
     "mysql2": "^3.9.5"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChessEmulator94/JET-Restaurant-Info.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ChessEmulator94/JET-Restaurant-Info/issues"
+  },
+  "homepage": "https://github.com/ChessEmulator94/JET-Restaurant-Info#readme"
 }
